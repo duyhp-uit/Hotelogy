@@ -2,11 +2,10 @@ import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import React, { Component } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import Explore from './screens/Explore';
-import Booking from './screens/Booking';
-import Inbox from './screens/Inbox';
-import Other from './screens/Other';
-import Profile from './screens/Profile';
+import Explore from './src/containers/Explore'
+import Booking from './src/containers/Booking';
+import Inbox from './src/containers/Inbox';
+import Profile from './src/containers/Profile';
 const TabNavigator = createBottomTabNavigator({
   Explore: {
     screen: Explore,
@@ -19,15 +18,30 @@ const TabNavigator = createBottomTabNavigator({
   },
   Booking: {
     screen: Booking,
+    navigationOptions: {
+      tabBarIcon: ({ focused, tintColor }) => {
+          const iconName = `ios-heart`;
+          return <Ionicons name={iconName} size={25} color={tintColor} />;
+      },
+  },
   },
   Inbox: {
     screen: Inbox,
+    navigationOptions: {
+      tabBarIcon: ({ focused, tintColor }) => {
+          const iconName = `ios-person`;
+          return <Ionicons name={iconName} size={25} color={tintColor} />;
+      },
   },
-  Other: {
-    screen: Other,
   },
   Profile: {
     screen: Profile,
+    navigationOptions: {
+      tabBarIcon: ({ focused, tintColor }) => {
+          const iconName = `ios-person`;
+          return <Ionicons name={iconName} size={25} color={tintColor} />;
+      },
+  },
   },
 
 }, 
