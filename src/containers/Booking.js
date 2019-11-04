@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-class Other extends Component {
+class Booking extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>ik</Text>
+<View style={styles.container}>
+        <Text>Booking</Text>
       </View>
     );
   }
 }
-export default Other;
+export default Booking;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
