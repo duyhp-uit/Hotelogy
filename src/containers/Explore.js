@@ -76,7 +76,7 @@ constructor(props) {
   };
 }
 componentDidMount(){
-fetch("localhost:/test.json")
+fetch("http://192.168.1.14:3000/posts")
 .then(response => response.json())
 .then((responseJson)=> {
   this.setState({
