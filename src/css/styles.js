@@ -79,6 +79,11 @@ export default StyleSheet.create({
         overflow: 'hidden',
         borderRadius: 12,
         marginVertical: 36 * 0.5,
+       borderStyle: 'solid',
+       borderColor: 'black',
+       borderWidth: 0.1,
+      
+      
       },
       recommendationImage: {
         width: (width - (36* 2)) / 2,
@@ -102,6 +107,11 @@ export default StyleSheet.create({
       recommendationTemp: {
         fontSize: 14 * 1.25,
         color: 'white'
+      },
+      loadMore: {
+        color: '#BCCCD4', 
+        marginTop: 8,
+        marginLeft: width - 220
       }
-
-})
+      }
+)

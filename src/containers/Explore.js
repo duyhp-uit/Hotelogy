@@ -68,154 +68,152 @@ TouchableOpacity
 } from "react-native";
 
 export default class Source extends React.Component {
-  renderDestination(item){
-    return(
-      <ImageBackground
-          style={[styles.flex, styles.destination, styles.shadow]}
-          imageStyle = {{borderRadius : 12}}
-          source= {{uri : item.preview}}
-        >
-          <View style={[styles.row, {justifyContent: 'space-between'}]}>
-            <View style={{flex : 0}}>
-              <Image source={{uri: item.user.avatar}} style={styles.avatar}/>
-            </View>
-            <View style={[styles.column, {flex : 2, paddingHorizontal : 18}]}>
-              <Text style={{color : 'white', fontWeight : 'bold'}}>{item.user.name}</Text>
-              <Text style={{color : 'white'}}>{item.location}</Text>
-            </View>
-            <View style={{flex : 0, justifyContent : 'center', alignItems : 'flex-end'}}>
-              <Text style={styles.rating}>{item.rating}</Text>
-            </View>
-          </View>
-          <View style={[styles.column, styles.destinationInfo, styles.shadow]}>
-            <Text style={{ fontSize: 24, fontWeight: '500', paddingBottom: 8, }}>
-              {item.title}
-            </Text>
-            <View style={[ styles.row, { justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 20 }]}>
-              <Text>
-                {item.description.split('').slice(0, 50)}...
-              </Text>
-            </View>
-          </View>
-
-        </ImageBackground>
-    )
-  }
-  renderDots(){
-    return(
-      <View 
-        style={
-              [
-                styles.flex, 
-                styles.row, 
-                {justifyContent: 'center',alignItems:'center', marginTop : Platform.OS === 'ios' ? 36 * 2 : 48}]}> 
-        {destinations.map((item, index) => {
-          return (
-            <View
-              key={`step-${item.id}`}
-              style={[styles.dots, item.id === 1 ? styles.activeDot : null ]}
-            />
-          )
-        })}
-      </View>
-      
-    ) 
-  }
-renderDestinations(){
-    return(
-      <View style={[ styles.flex, styles.column, styles.destinations]}>
-        <Text style = {{fontSize: 29, marginLeft: 10, paddingBottom: 30}}>Recommend Rooms</Text>
-      <FlatList 
-        horizontal
-        pagingEnabled
-        scrollEnabled
-        showsHorizontalScrollIndicator = {false}
-        scrollEventThrottle = {16}
-        snapToAlignment = "center"
-        // style={{ overflow : 'visible' }} //In IOS platform
-        data = {destinations}
-        keyExtractor = {(item, index)=> `${item.id}`}
-        renderItem = {({item}) => this.renderDestination(item)}
-      />
-      {this.renderDots()}
-    </View>
-    )
-}
-renderRecommended(){
-  return(
-    <View style={[styles.flex, styles.column, styles.recommended]}>
-              <View
-                style={[
-                  styles.row,
-                  styles.recommendedHeader,
-                ]}
-              >
-                <Text style={{ fontSize: 20 }}>Recommended</Text>
-                <TouchableOpacity activeOpacity={0.5}>
-                  <Text style={{ color: '#BCCCD4' }}>More</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={[styles.column]}
-              style = {{borderStyle: 'solid', borderColor: 'red'}}
-              >
-                <FlatList 
-                  horizontal
-                  pagingEnabled
-                  scrollEnabled
-                  showsHorizontalScrollIndicator = {false}
-                  scrollEventThrottle = {16}
-                  snapToAlignment = "center"
-                  data = {destinations}
-                  keyExtractor = {(item, index)=> `${item.id}`}
-                  renderItem={({ item, index }) => this.renderRecommendation(item, index)}
-                />
-              </View>
-            </View>
-  )
-}
-renderSearch() {
-  <View style={[styles.row, styles.header]}>
-  <View>
-    <Text>Search for place</Text>
-    <Text style={{fontSize : 24}}>Destination</Text>
-  </View>
-  <View>
-    <Image style={styles.avatar} source={{ uri: 'https://randomuser.me/api/portraits/women/32.jpg'}} /> 
-  </View>
-</View>
-}
-renderRecommendation(item, index) {
-  const isLastItem = index === destinations.length - 1;
-  return(
-      <View 
-        style={[styles.flex, styles.column, styles.recommendation, styles.shadow, 
-                index === 0 ? { marginLeft: 36 } : null,
-                isLastItem ? { marginRight: 36 / 2 } : null,
-               ]}
-      >
-        <View style={[styles.flex, styles.recommendationHeader]}>
-          <Image style={[styles.recommendationImage]} source={{ uri: item.preview }} />
-          <View style={[ styles.flex, styles.row, styles.recommendationOptions ]}>
-            <Text style={styles.recommendationTemp}>
-              {item.temperature}℃
-            </Text>
-          </View>
-        </View>
-        <View style={[styles.flex, styles.column, styles.shadow, { justifyContent: 'space-evenly', padding: 36 / 2 }]}>
-          <Text style={{ fontSize: 16 * 1.25, fontWeight: '500', paddingBottom: 36 / 4.5, }}>{item.title}</Text>
-          <Text style={{ color: '#BCCCD4' }}>{item.location}</Text>
-        </View>
-        <View style={[
-            styles.row,
-            { alignItems: 'center', justifyContent: 'space-between', marginTop: 16 }
-          ]}>
-            <Text style={{ color: '#007BFA'}}>
-              {item.rating}
-            </Text>
-          </View>
-      </View>
-  )
-}
+	renderDestination(item){
+		return(
+			<ImageBackground
+				style={[styles.flex, styles.destination, styles.shadow]}
+				imageStyle = {{borderRadius : 12}}
+				source= {{uri : item.preview}}>
+				<View style={[styles.row, {justifyContent: 'space-between'}]}>
+					<View style={{flex : 0}}>
+						<Image source={{uri: item.user.avatar}} style={styles.avatar}/>
+					</View>
+					<View style={[styles.column, {flex : 2, paddingHorizontal : 18}]}>
+						<Text style={{color : 'white', fontWeight : 'bold'}}>{item.user.name}</Text>
+						<Text style={{color : 'white'}}>{item.location}</Text>
+					</View>
+					<View style={{flex : 0, justifyContent : 'center', alignItems : 'flex-end'}}>
+						<Text style={styles.rating}>{item.rating}</Text>
+					</View>
+				</View>
+				<View style={[styles.column, styles.destinationInfo, styles.shadow]}>
+					<Text style={{ fontSize: 24, fontWeight: '500', paddingBottom: 8, }}>
+						{item.title}
+					</Text>
+					<View style={[ styles.row, { justifyContent: 'space-between',
+												alignItems: 'flex-end',
+												marginBottom: 20 }]}>
+						<Text>
+							{item.description.split('').slice(0, 50)}...
+						</Text>
+					</View>
+				</View>
+			</ImageBackground>
+		)
+	}
+	renderDots(){
+    	return(
+      		<View 
+        		style={[
+					styles.flex, 
+					styles.row, 
+					{	justifyContent: 'center',
+						alignItems:'center',
+						marginTop : Platform.OS === 'ios' ? 36 * 2 : 48}]}> 
+        					{destinations.map((item, index) => {
+          						return (
+           						 	<View
+										key={`step-${item.id}`}
+              							style={[styles.dots, item.id === 1 ? styles.activeDot : null ]}
+            						/>
+          						)
+        					})}
+      		</View>
+    	) 
+	}
+	renderDestinations(){
+		return(
+			<View style={[ styles.flex, styles.column, styles.destinations]}>
+				<Text style = {{fontSize: 25, marginLeft: 30, marginTop: 40, paddingBottom: 10}}>Recommended Rooms</Text>
+			<FlatList 
+				horizontal
+				pagingEnabled
+				scrollEnabled
+				showsHorizontalScrollIndicator = {false}
+				scrollEventThrottle = {16}
+				snapToAlignment = "center"
+				// style={{ overflow : 'visible' }} //In IOS platform
+				data = {destinations}
+				keyExtractor = {(item, index)=> `${item.id}`}
+				renderItem = {({item}) => this.renderDestination(item)}
+			/>
+			{this.renderDots()}
+			</View>
+		)
+	}
+	renderRecommended(){
+		return(
+			<View style={[styles.flex, styles.column, styles.recommended]}>
+				<View
+				style={[
+					styles.row,
+					styles.recommendedHeader,
+				]}
+				>
+				<Text style={{ marginLeft: 30, fontSize: 25 }}>Recommended</Text>
+				<TouchableOpacity activeOpacity={0.5}>
+					<Text style={[styles.loadMore]}>More</Text>
+				</TouchableOpacity>
+				</View>
+				<View style={[styles.column]}>
+								<FlatList 
+					horizontal
+					pagingEnabled
+					scrollEnabled
+					showsHorizontalScrollIndicator = {false}
+					scrollEventThrottle = {16}
+					snapToAlignment = "center"
+					data = {destinations}
+					keyExtractor = {(item, index)=> `${item.id}`}
+					renderItem={({ item, index }) => this.renderRecommendation(item, index)}
+				/>
+				</View>
+			</View>
+		)
+	}
+	renderSearch() {
+	<View style={[styles.row, styles.header]}>
+		<View>
+			<Text>Search for place</Text>
+			<Text style={{fontSize : 24}}>Destination</Text>
+		</View>
+		<View>
+			<Image style={styles.avatar} source={{ uri: 'https://randomuser.me/api/portraits/women/32.jpg'}} /> 
+		</View>
+	</View>
+	}
+	renderRecommendation(item, index) {
+	const isLastItem = index === destinations.length - 1;
+	return(
+		<View 
+			style={[styles.flex, styles.column, styles.recommendation, styles.shadow, 
+					index === 0 ? { marginLeft: 36 } : null,
+					isLastItem ? { marginRight: 36 / 2 } : null,
+				]}
+		>
+			<View style={[styles.flex, styles.recommendationHeader]}>
+			<Image style={[styles.recommendationImage]} source={{ uri: item.preview }} />
+			<View style={[ styles.flex, styles.row, styles.recommendationOptions ]}>
+				<Text style={styles.recommendationTemp}>
+				{item.temperature}℃
+				</Text>
+			</View>
+			</View>
+			<View style={[styles.flex, styles.column, styles.shadow, { justifyContent: 'space-evenly', padding: 36 / 2 }]}>
+			<Text style={{ fontSize: 16 * 1.25, fontWeight: '500', paddingBottom: 36 / 4.5, }}>{item.title}</Text>
+			<Text style={{ color: '#BCCCD4' }}>{item.location}</Text>
+			</View>
+			<View style={[
+				styles.row,
+				{ alignItems: 'center', justifyContent: 'space-between' }
+			]}>
+				<Text style={{ color: '#007BFA', marginLeft: 10}}>
+				{item.rating}
+				</Text>
+			</View>
+		</View>
+	)
+	}
 render(){
 return(
   <View>
