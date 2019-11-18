@@ -1,8 +1,8 @@
 # INSTALLATION GUIDE HOTELOGY
 1. Clone source git
-- `git clone `
+- `git clone https://github.com/16520285/Hotelogy.git`
 
-2. Install node_modules 
+2. Install node_modules in Hotelogy folder
 - `$ npm install`
 
 3. Build 
