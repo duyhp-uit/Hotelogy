@@ -207,7 +207,7 @@ export default class Source extends React.Component {
 				styles.row,
 				{ alignItems: 'center', justifyContent: 'space-between' }
 			]}>
-				<Text style={{ color: '#007BFA', marginLeft: 10}}>
+				<Text style={{ color: '#007BFA', marginLeft: 10, fontSize: 22}}>
 				{item.rating}
 				</Text>
 			</View>
@@ -242,7 +242,7 @@ const destinations = [
     temperature: 34,
     title: 'Santorini',
     description: 'Santorini is one of the Cyclades islands in the Aegean Sea. It was devastated by a volcanic eruption in the 16th century BC, forever shaping its rugged landscape. The whitewashed, cubiform houses of its 2 principal towns, Fira and Oia, cling to cliffs above an underwater caldera (crater). They overlook the sea, small islands to the west and beaches made up of black, red and white lava pebbles.',
-    rating: 4.3,
+    rating: '99$',
     reviews: 3212,
     preview: 'https://images.unsplash.com/photo-1507501336603-6e31db2be093?auto=format&fit=crop&w=800&q=80',
     images: [
@@ -263,7 +263,7 @@ const destinations = [
     temperature: 34,
     title: 'Loutraki',
     description: 'This attractive small town, 80 kilometers from Athens',
-    rating: 4.6,
+    rating: '80$',
     reviews: 3212,
     preview: 'https://images.unsplash.com/photo-1458906931852-47d88574a008?auto=format&fit=crop&w=800&q=80',
     images: [
@@ -282,7 +282,7 @@ const destinations = [
     temperature: 34,
     title: 'Santorini',
     description: 'Santorini - Description',
-    rating: 3.2,
+    rating: '79$',
     reviews: 3212,
     preview: 'https://images.unsplash.com/photo-1507501336603-6e31db2be093?auto=format&fit=crop&w=800&q=80',
     images: [
@@ -302,7 +302,7 @@ const destinations = [
     temperature: 34,
     title: 'Loutraki',
     description: 'This attractive small town, 80 kilometers from Athens',
-    rating: 5,
+    rating: '109$',
     reviews: 3212,
     preview: 'https://images.unsplash.com/photo-1458906931852-47d88574a008?auto=format&fit=crop&w=800&q=80',
     images: [

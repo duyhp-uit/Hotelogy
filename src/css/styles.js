@@ -111,7 +111,7 @@ export default StyleSheet.create({
       loadMore: {
         color: '#BCCCD4', 
         marginTop: 8,
-        marginLeft: width - 220
+        marginLeft: width / 2.6
       }
       }
 )
