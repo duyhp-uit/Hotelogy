@@ -40,20 +40,20 @@ export default StyleSheet.create({
       destinationInfo : {
         position : 'absolute',
         borderRadius : 12,
-        paddingHorizontal : 36,
-        paddingVertical : 16,
-        bottom : 20,                       //In iOS platform, bottom : -36
-        left : 36,
-        right : 36,
-        backgroundColor : 'white',
+        paddingHorizontal : 20,
+        paddingVertical : 0,
+        bottom : 0,                       //In iOS platform, bottom : -36
+        left : 0,
+        right : 20,
+        backgroundColor : 'transparent'
       },
        shadow : {
         shadowColor: 'black',
         shadowOffset: {
-          width: 0,
-          height: 6,
+          width: 1,
+          height: 10,
         },
-        shadowOpacity: 0.05,
+        shadowOpacity: 3,
         shadowRadius: 10,
         elevation: 5,
       },
@@ -79,10 +79,17 @@ export default StyleSheet.create({
         overflow: 'hidden',
         borderRadius: 12,
         marginVertical: 36 * 0.5,
-       borderStyle: 'solid',
-       borderColor: 'black',
-       borderWidth: 0.1,
-      
+        borderStyle: 'solid',
+        borderColor: 'black',
+        borderWidth: 0.1,
+        shadowColor: 'black',
+        shadowOffset: {
+          width: 1,
+          height: 10,
+        },
+        shadowOpacity: 3,
+        shadowRadius: 10,
+        elevation: 5,
       
       },
       recommendationImage: {

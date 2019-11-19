@@ -1,14 +1,32 @@
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer} from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import React, { Component } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Explore from './src/containers/Explore'
-import Booking from './src/containers/Booking';
-import Inbox from './src/containers/Inbox';
-import Profile from './src/containers/Profile';
-const TabNavigator = createBottomTabNavigator({
+import News from './src/containers/News'
+import Booking from './src/containers/Booking'
+import Inbox from './src/containers/Inbox'
+import Profile from './src/containers/Profile'
+import {YellowBox} from 'react-native';
+YellowBox.ignoreWarnings(['Warning: ...']);
+const ExploreStack = createStackNavigator({
   Explore: {
     screen: Explore,
+    navigationOptions: {
+      headerTitle: 'Explore',
+    },
+  },
+  News: {
+    screen: News,
+    navigationOptions: {
+      headerTitle: 'News',
+    },
+  },
+});
+const TabNavigator = createBottomTabNavigator({
+  Explore: {
+    screen: ExploreStack,
     navigationOptions: {
       tabBarIcon: ({ focused, tintColor }) => {
           const iconName = `ios-person`;

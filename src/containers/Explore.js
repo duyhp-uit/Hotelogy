@@ -64,12 +64,18 @@ ScrollView,
 ImageBackground,
 Platform,
 Text,
-TouchableOpacity
+TouchableOpacity,
+Animated,
+Dimensions
 } from "react-native";
+import News from '../containers/News'
+const {height, width} = Dimensions.get('screen');
 
 export default class Source extends React.Component {
+	scrollX = new Animated.Value(0);
 	renderDestination(item){
 		return(
+			<TouchableOpacity activeOpacity = {0.8} onPress = {() => this.props.navigation.navigate('News', {})}>
 			<ImageBackground
 				style={[styles.flex, styles.destination, styles.shadow]}
 				imageStyle = {{borderRadius : 12}}
@@ -87,38 +93,41 @@ export default class Source extends React.Component {
 					</View>
 				</View>
 				<View style={[styles.column, styles.destinationInfo, styles.shadow]}>
-					<Text style={{ fontSize: 24, fontWeight: '500', paddingBottom: 8, }}>
+					<Text style={{ fontSize: 24, fontWeight: '500', paddingBottom: 8, color: 'white'}}>
 						{item.title}
 					</Text>
 					<View style={[ styles.row, { justifyContent: 'space-between',
 												alignItems: 'flex-end',
 												marginBottom: 20 }]}>
-						<Text>
+						<Text style = {{color: 'white'}}>
 							{item.description.split('').slice(0, 50)}...
 						</Text>
 					</View>
 				</View>
 			</ImageBackground>
+			</TouchableOpacity>
 		)
 	}
 	renderDots(){
+		const dotPosition = Animated.divide(this.scrollX, width);
     	return(
-      		<View 
-        		style={[
-					styles.flex, 
-					styles.row, 
-					{	justifyContent: 'center',
-						alignItems:'center',
-						marginTop : Platform.OS === 'ios' ? 36 * 2 : 48}]}> 
-        					{destinations.map((item, index) => {
-          						return (
-           						 	<View
-										key={`step-${item.id}`}
-              							style={[styles.dots, item.id === 1 ? styles.activeDot : null ]}
-            						/>
-          						)
-        					})}
-      		</View>
+      		<View style={[ styles.flex, styles.row,
+        				{ justifyContent: 'center', alignItems: 'center', marginTop: 10 }
+      		]}>
+			{destinations.map((item, index) => {
+			const borderWidth = dotPosition.interpolate({
+				inputRange: [index -1, index, index + 1],
+				outputRange: [0, 2.5, 0],
+				extrapolate: 'clamp'
+          	});
+          	return (
+				<Animated.View
+					key={`step-${item.id}`}
+					style={[styles.dots, styles.activeDot, { borderWidth: borderWidth } ]}
+            	/>
+          	)
+        	})}
+			</View>
     	) 
 	}
 	renderDestinations(){
@@ -132,7 +141,9 @@ export default class Source extends React.Component {
 				showsHorizontalScrollIndicator = {false}
 				scrollEventThrottle = {16}
 				snapToAlignment = "center"
+				decelerationRate = {0}
 				// style={{ overflow : 'visible' }} //In IOS platform
+				onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX }} }])}
 				data = {destinations}
 				keyExtractor = {(item, index)=> `${item.id}`}
 				renderItem = {({item}) => this.renderDestination(item)}
@@ -199,7 +210,7 @@ export default class Source extends React.Component {
 				</Text>
 			</View>
 			</View>
-			<View style={[styles.flex, styles.column, styles.shadow, { justifyContent: 'space-evenly', padding: 36 / 2 }]}>
+			<View style={[styles.flex, styles.column, { justifyContent: 'space-evenly', padding: 36 / 2 }]}>
 			<Text style={{ fontSize: 16 * 1.25, fontWeight: '500', paddingBottom: 36 / 4.5, }}>{item.title}</Text>
 			<Text style={{ color: '#BCCCD4' }}>{item.location}</Text>
 			</View>
@@ -207,7 +218,7 @@ export default class Source extends React.Component {
 				styles.row,
 				{ alignItems: 'center', justifyContent: 'space-between' }
 			]}>
-				<Text style={{ color: '#007BFA', marginLeft: 10, fontSize: 22}}>
+				<Text style={{ color: '#007BFA', marginLeft: 30, fontSize: 22}}>
 				{item.rating}
 				</Text>
 			</View>
