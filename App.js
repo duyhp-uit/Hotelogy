@@ -2,7 +2,7 @@ import { createAppContainer} from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import React, { Component } from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import {Ionicons, FontAwesome} from 'react-native-vector-icons'
 import Explore from './src/containers/Explore'
 import News from './src/containers/News'
 import Booking from './src/containers/Booking'
@@ -29,8 +29,8 @@ const TabNavigator = createBottomTabNavigator({
     screen: ExploreStack,
     navigationOptions: {
       tabBarIcon: ({ focused, tintColor }) => {
-          const iconName = `ios-person`;
-          return <Ionicons name={iconName} size={25} color={tintColor} />;
+          const iconName = `home`;
+          return <FontAwesome name={iconName} size={25} color={tintColor} />;
       },
   },
   },
@@ -47,7 +47,7 @@ const TabNavigator = createBottomTabNavigator({
     screen: Inbox,
     navigationOptions: {
       tabBarIcon: ({ focused, tintColor }) => {
-          const iconName = `ios-person`;
+          const iconName = `md-chatboxes`;
           return <Ionicons name={iconName} size={25} color={tintColor} />;
       },
   },
