@@ -1,28 +1,64 @@
 import React from "react";
-import {SafeAreaView, Text, Image, Dimensions, View} from 'react-native'
+import {
+    SafeAreaView,
+    Text,
+    Image,
+    Dimensions,
+    View,
+    StyleSheet,
+    ScrollView,
+    
+} from 'react-native'
 const {height, width} = Dimensions.get('screen');
 export default class News extends React.Component {
     render() {
         return(
             <SafeAreaView style = {{flex: 1}}>
-                <Image 
-                    style = {{width: width - 72, height: 240, marginHorizontal : 36, marginVertical: 12}}
-                    source={{uri: 'https://facebook.github.io/react-native/img/tiny_logo.png'}}   
+                <ScrollView>
+                <Image
+                    style = {styles.imgTitle}
+                    source={{uri: this.props.navigation.getParam('image')}}   
                 ></Image>
-                <View>
-                    <Text style = {{marginLeft: 20, fontSize: 24}}>
-                    Đây là tiêu đề tin tức
+                <View style = {styles.container}>
+                    <Text style = {styles.title}>
+                    {this.props.navigation.getParam('name')}
                     </Text>
-                    <Text style = {{fontSize: 12, fontStyle: 'italic', textAlign: 'right', fontWeight: '300', marginRight: 20}}>
+                    <Text style = {styles.datetime}>
                         Thứ 4, 20-10-2019
                     </Text>
-                </View>
-                <View>
-                    <Text>
-
+                    <View style = {{borderStyle: 'solid', borderWidth: 2, borderBottomColor: '#fff'}}>
+                    </View>
+                    <Text style = {styles.content}>
+                        {this.props.navigation.getParam('content')}
                     </Text>
                 </View>
+                </ScrollView>
             </SafeAreaView>
         )
     }
 }
+
+const styles = StyleSheet.create( {
+    container: {
+        paddingHorizontal: 30
+    },
+    imgTitle: {
+        width: width,
+        height: 240,
+        marginVertical: 12
+    },
+    title: {
+        fontSize: 24,
+        paddingVertical: 10
+    },
+    datetime: {
+        fontSize:12,
+        fontStyle: 'italic',
+        textAlign: 'right',
+        fontWeight: '300',
+    },
+    content: {
+        lineHeight: 26
+    }
+
+})

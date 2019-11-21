@@ -8,21 +8,28 @@ import News from './src/containers/News'
 import Booking from './src/containers/Booking'
 import Inbox from './src/containers/Inbox'
 import Profile from './src/containers/Profile'
+import Room from  './src/containers/Room'
 import {YellowBox} from 'react-native';
 YellowBox.ignoreWarnings(['Warning: ...']);
 const ExploreStack = createStackNavigator({
-  Explore: {
-    screen: Explore,
-    navigationOptions: {
-      headerTitle: 'Explore',
-    },
-  },
-  News: {
-    screen: News,
-    navigationOptions: {
-      headerTitle: 'News',
-    },
-  },
+  	Explore: {
+		screen: Explore,
+		navigationOptions: {
+			headerTitle: 'Explore',
+		},
+	},
+	News: {
+		screen: News,
+		navigationOptions: {
+			headerTitle: 'News',
+		},
+	},
+	Room: {
+		screen: Room,
+		navigationOptions: {
+			headerTitle: 'Rooms',
+		},
+	}
 });
 const TabNavigator = createBottomTabNavigator({
   Explore: {
