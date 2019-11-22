@@ -8,44 +8,71 @@ import {
     StyleSheet
 }
 from 'react-native'
-import {Ionicons} from 'react-native-vector-icons'
-
-const {height, width} = Dimensions.get('screen');
+import { MaterialCommunityIcons, SimpleLineIcons, FontAwesome, FontAwesome5 } from 'react-native-vector-icons'
+import color from '../css/ColorConstant'
+const { height, width } = Dimensions.get('screen');
 export default class Room extends React.Component {
     renderTitleSection() {
         return (
-        <View style = {styles.titleSection} >
+        <View style = {styles.titleSection}>
             <Text style = {{fontSize: 24, padding: 10}}>{this.props.navigation.getParam('name')}</Text>
-            {/* rating */}
+            {this.renderRatings(this.props.navigation.getParam('rating'))}
         </View>
         )
     }
     renderImageCollectionSection() {
         return (
-            <View style = {styles.collection}>
-                <View style = {{marginLeft: 10}}>
-                <Text style = {{fontWeight: 'bold', fontSize: 22}}>
-                    {this.props.navigation.getParam('price')}$
-                </Text>
-                <Text style = {{fontWeight: '300', marginTop: 6}}>
-                <Ionicons name='md-checkmark' size={16} color='green' /> Đã bao gồm thuế
-                </Text>
-                </View>
-            </View>
+          <View></View>
+        )
+    }
+    renderRatings(rating) {
+        const star = new Array(5).fill(0);
+        return (
+            star.map((value, index) => {
+                const activeStar = index < rating;
+                return (
+                    <FontAwesome 
+                        style = {{padding: 2}}
+                        name = 'star'
+                        key = {`star-$(index)`}
+                        color = {activeStar ? color.yellow : 'gray'}/>
+                )
+            })
         )
     }
     renderDetailRoomSection() {
-
+        return (
+        <View style = {styles.sectionContainer}>
+            <View style = {{marginLeft: 10}}>
+                <Text style = {{marginTop: 6}}>
+                    <SimpleLineIcons name='size-fullscreen' size={16} />  Room Size: {(this.props.navigation.getParam('id')) % 2 === 1 ? '30 m2' : '45 m2'}
+                </Text>
+                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                    <Text style={{color: 'green', paddingVertical: 10}}>
+                        <FontAwesome name= 'wifi' size={16}></FontAwesome> Free Wifi 
+                    </Text>
+                    <Text style={{color: 'green', padding: 10}}>
+                        <MaterialCommunityIcons name= 'city' size={16}></MaterialCommunityIcons> City View 
+                    </Text>
+                    <Text style={{color: 'green', padding: 10}}>
+                        <FontAwesome name= 'bathtub' size={16}></FontAwesome> Bathub or shower
+                    </Text>
+                    <Text style={{color: 'green'}}>
+                        <FontAwesome5 name= 'tv' size={16}></FontAwesome5> Flat-Screen TV 
+                    </Text>
+                </View>
+            </View>
+        </View>
+        )
     }
     render() {
         return(
-            <SafeAreaView style = {{flex: 1, backgroundColor: '#c2cad1'}}>
+            <SafeAreaView style = {{flex: 1, backgroundColor: color.gray}}>
                 <ScrollView
-                showsVerticalScrollIndicator={false}
-			    contentContainerStyle={{ paddingBottom: 36}}
-                >
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ paddingBottom: 36}}>
                     {this.renderTitleSection()}
-                    {this.renderImageCollectionSection()}
+                    {this.renderDetailRoomSection()}
                 </ScrollView>
             </SafeAreaView>
         )
@@ -64,9 +91,10 @@ const styles = StyleSheet.create( {
     titleSection: {
         height: 50,
         fontSize: 24,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        flexDirection: 'row',
     },
-    collection: {
+    sectionContainer: {
         marginTop: 5,
         height: 140,
         fontSize: 24,
