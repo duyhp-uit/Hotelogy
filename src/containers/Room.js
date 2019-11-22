@@ -5,10 +5,11 @@ import {
     View,
     Text,
     Dimensions,
+    Button,
     StyleSheet
 }
 from 'react-native'
-import { MaterialCommunityIcons, SimpleLineIcons, FontAwesome, FontAwesome5 } from 'react-native-vector-icons'
+import {Ionicons, MaterialCommunityIcons, SimpleLineIcons, FontAwesome, FontAwesome5 } from 'react-native-vector-icons'
 import color from '../css/ColorConstant'
 const { height, width } = Dimensions.get('screen');
 export default class Room extends React.Component {
@@ -34,7 +35,7 @@ export default class Room extends React.Component {
                     <FontAwesome 
                         style = {{padding: 2}}
                         name = 'star'
-                        key = {`star-$(index)`}
+                        key = {index}
                         color = {activeStar ? color.yellow : 'gray'}/>
                 )
             })
@@ -65,6 +66,20 @@ export default class Room extends React.Component {
         </View>
         )
     }
+    renderTotalMoneySection() {
+        return (
+           <View style = {styles.sectionContainer}>
+                <View style = {{marginLeft: 10}}>
+                <Text style = {{fontWeight: 'bold', fontSize: 22}}>
+                    {this.props.navigation.getParam('price')}$
+                </Text>
+                <Text style = {{fontWeight: '300', marginTop: 6}}>
+                <Ionicons name='md-checkmark' size={16} color='green' /> Đã bao gồm thuế
+                </Text>
+                </View>
+            </View>
+        )
+    }
     render() {
         return(
             <SafeAreaView style = {{flex: 1, backgroundColor: color.gray}}>
@@ -73,7 +88,14 @@ export default class Room extends React.Component {
                     contentContainerStyle={{ paddingBottom: 36}}>
                     {this.renderTitleSection()}
                     {this.renderDetailRoomSection()}
+                    {this.renderTotalMoneySection()}
                 </ScrollView>
+                <View>
+                    <Button
+                        title = 'Book Now'
+                    >
+                    </Button>
+                </View>
             </SafeAreaView>
         )
     }
