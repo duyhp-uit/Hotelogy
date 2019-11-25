@@ -9,13 +9,14 @@ import Booking from './src/containers/Booking'
 import Inbox from './src/containers/Inbox'
 import Profile from './src/containers/Profile'
 import Room from  './src/containers/Room'
+import ZoomImage from './src/components/ZoomImage'
 import {YellowBox} from 'react-native';
 YellowBox.ignoreWarnings(['Warning: ...']);
 const ExploreStack = createStackNavigator({
-  	Explore: {
+  Explore: {
 		screen: Explore,
 		navigationOptions: {
-			headerTitle: 'Explore',
+			headerTitle: 'Back',
 		},
 	},
 	News: {
@@ -29,8 +30,37 @@ const ExploreStack = createStackNavigator({
 		navigationOptions: {
 			headerTitle: 'Rooms',
 		},
+	},
+	ZoomImage: {
+		screen: ZoomImage,
+		navigationOptions: {
+			headerTitle: 'Zoom',
+			headershown: false,
+		},
 	}
+
 });
+const BookingStack = createStackNavigator({
+  Booking: {
+    screen: Booking,
+    navigationOptions: {
+			headerTitle: 'Booking',
+		},
+  },
+  Room: {
+		screen: Room,
+		navigationOptions: {
+			headerTitle: 'Rooms',
+		},
+  },
+  ZoomImage: {
+		screen: ZoomImage,
+		navigationOptions: {
+			headerTitle: 'Zoom',
+			headershown: false,
+		},
+	}
+})
 const TabNavigator = createBottomTabNavigator({
   Explore: {
     screen: ExploreStack,
@@ -42,7 +72,7 @@ const TabNavigator = createBottomTabNavigator({
   },
   },
   Booking: {
-    screen: Booking,
+    screen: BookingStack,
     navigationOptions: {
       tabBarIcon: ({ focused, tintColor }) => {
           const iconName = `ios-heart`;

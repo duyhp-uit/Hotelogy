@@ -6,24 +6,33 @@ import {
     Text,
     Dimensions,
     Button,
-    StyleSheet
+    Image,
+    FlatList,
+    StyleSheet,
 }
 from 'react-native'
 import {Ionicons, MaterialCommunityIcons, SimpleLineIcons, FontAwesome, FontAwesome5 } from 'react-native-vector-icons'
 import color from '../css/ColorConstant'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 const { height, width } = Dimensions.get('screen');
 export default class Room extends React.Component {
+    renderMainImage() {
+        return(
+            <View style = {styles.imgTitle}>
+                <Image 
+                    style = {{width: '100%', height: '100%'}}
+                    source = {{uri: this.props.navigation.getParam('image')}}
+                >
+                </Image>
+            </View>
+        )
+    }
     renderTitleSection() {
         return (
         <View style = {styles.titleSection}>
             <Text style = {{fontSize: 24, padding: 10}}>{this.props.navigation.getParam('name')}</Text>
             {this.renderRatings(this.props.navigation.getParam('rating'))}
         </View>
-        )
-    }
-    renderImageCollectionSection() {
-        return (
-          <View></View>
         )
     }
     renderRatings(rating) {
@@ -43,10 +52,13 @@ export default class Room extends React.Component {
     }
     renderDetailRoomSection() {
         return (
-        <View style = {styles.sectionContainer}>
+        <View style = {[styles.sectionDetailContainer]}>
             <View style = {{marginLeft: 10}}>
                 <Text style = {{marginTop: 6}}>
                     <SimpleLineIcons name='size-fullscreen' size={16} />  Room Size: {(this.props.navigation.getParam('id')) % 2 === 1 ? '30 m2' : '45 m2'}
+                </Text>
+                <Text style = {{marginTop: 6}}>
+                    <FontAwesome name= 'bed' size= {16}/> Two beds
                 </Text>
                 <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
                     <Text style={{color: 'green', paddingVertical: 10}}>
@@ -74,10 +86,45 @@ export default class Room extends React.Component {
                     {this.props.navigation.getParam('price')}$
                 </Text>
                 <Text style = {{fontWeight: '300', marginTop: 6}}>
-                <Ionicons name='md-checkmark' size={16} color='green' /> Đã bao gồm thuế
+                <Ionicons name='md-checkmark' size={16} color='green'/> Includes taxes and fees
                 </Text>
                 </View>
             </View>
+        )
+    }
+    renderImageColectionSection() {
+        return (
+        
+        <View style = {styles.sectionContainer, {flexDirection: 'row', marginTop: 5}}>
+					<FlatList 
+						horizontal
+						pagingEnabled
+						scrollEnabled
+						showsHorizontalScrollIndicator = {false}
+						scrollEventThrottle = {16}
+						snapToAlignment = "center"
+						data = {imageList}
+						keyExtractor = {(item, index)=> `${item.id}`}
+						renderItem={({ item, index }) => this.renderImage(item, index)}
+					/>
+        </View>
+        )
+    }
+    renderImage(item, index) {
+        return (
+            <TouchableOpacity
+                activeOpacity = {0.8}
+                onPress = {() => this.props.navigation.navigate('ZoomImage', {
+                    image: item.link
+                })}
+            >          
+                <Image 
+                    style = {{width: 140, height: 138, marginTop: 1}}
+                    source = {{uri: item.link}}
+                >
+            </Image>
+            </TouchableOpacity>
+  
         )
     }
     render() {
@@ -86,13 +133,16 @@ export default class Room extends React.Component {
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ paddingBottom: 36}}>
+                    {this.renderMainImage()}
                     {this.renderTitleSection()}
                     {this.renderDetailRoomSection()}
+                    {this.renderImageColectionSection()}
                     {this.renderTotalMoneySection()}
                 </ScrollView>
+                
                 <View>
                     <Button
-                        title = 'Book Now'
+                        title = 'BOOK NOW'
                     >
                     </Button>
                 </View>
@@ -108,7 +158,6 @@ const styles = StyleSheet.create( {
     imgTitle: {
         width: width,
         height: 240,
-        marginVertical: 12
     },
     titleSection: {
         height: 50,
@@ -119,6 +168,12 @@ const styles = StyleSheet.create( {
     sectionContainer: {
         marginTop: 5,
         height: 140,
+        fontSize: 24,
+        backgroundColor: '#fff'
+    },
+    sectionDetailContainer: {
+        marginTop: 5,
+        height: 110,
         fontSize: 24,
         backgroundColor: '#fff'
     },
@@ -133,3 +188,18 @@ const styles = StyleSheet.create( {
     }
 
 })
+
+const  imageList = [
+    {
+        id: 1,
+        link: 'https://images.unsplash.com/photo-1458906931852-47d88574a008?auto=format&fit=crop&w=800&q=80'
+    },
+    {
+        id: 2,
+        link: 'https://pix10.agoda.net/hotelImages/908/9085278/9085278_19080514110079006345.jpg?s=1024x768'
+    },
+    {
+        id: 3,
+        link: 'https://d1nabgopwop1kh.cloudfront.net/hotel-asset/1626883025423846954_wh_17'
+    }
+]

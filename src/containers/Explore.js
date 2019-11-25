@@ -14,7 +14,7 @@ import {
 } from "react-native";
 const {height, width} = Dimensions.get('screen');
 
-export default class Source extends React.Component {
+export default class Explore extends React.Component {
 	scrollX = new Animated.Value(0);
 	renderNewsCard(item){
 		return(
@@ -93,22 +93,22 @@ export default class Source extends React.Component {
 				]}
 				>
 				<Text style={{ marginLeft: 30, fontSize: 25 }}>Các loại phòng</Text>
-				<TouchableOpacity activeOpacity={0.5}>
+				<TouchableOpacity activeOpacity={0.5} onPress = {() => this.props.navigation.navigate('Booking')}>
 					<Text style={[styles.loadMore]}>More</Text>
 				</TouchableOpacity>
 				</View>
 				<View style={[styles.column]}>
-								<FlatList 
-					horizontal
-					pagingEnabled
-					scrollEnabled
-					showsHorizontalScrollIndicator = {false}
-					scrollEventThrottle = {16}
-					snapToAlignment = "center"
-					data = {roomType}
-					keyExtractor = {(item, index)=> `${item.id}`}
-					renderItem={({ item, index }) => this.renderRoomTypeCard(item, index)}
-				/>
+					<FlatList 
+						horizontal
+						pagingEnabled
+						scrollEnabled
+						showsHorizontalScrollIndicator = {false}
+						scrollEventThrottle = {16}
+						snapToAlignment = "center"
+						data = {roomType}
+						keyExtractor = {(item, index)=> `${item.id}`} 
+						renderItem={({ item, index }) => this.renderRoomTypeCard(item, index)}
+					/>
 				</View>
 			</View>
 		)
@@ -127,43 +127,39 @@ export default class Source extends React.Component {
 	renderRoomTypeCard(item, index) {
 	const isLastItem = index === news.length - 1;
 	return(
-		<TouchableOpacity activeOpacity = {0.8} 
-							onPress = {() => this.props.navigation.navigate(
-								'Room', {
-									id: item.id,
-									name: item.name, 
-									description: item.description, 
-									image: item.image, 
-									price: item.price,
-									rating: item.rating
-									})}>
-		<View 
-			style={[styles.flex, styles.column, styles.recommendation, styles.shadow, 
-					index === 0 ? { marginLeft: 36 } : null,
-					isLastItem ? { marginRight: 36 / 2 } : null,
-				]}
-		>
-			<View style={[styles.flex, styles.recommendationHeader]}>
-			<Image style={[styles.recommendationImage]} source={{ uri: item.image }} />
-			<View style={[ styles.flex, styles.row, styles.recommendationOptions ]}>
-				<Text style={styles.recommendationTemp}>
-				{item.idCategory}℃
-				</Text>
+		<TouchableOpacity 
+			activeOpacity = {0.8} 
+			onPress = {() => this.props.navigation.navigate(
+				'Room', {
+					id: item.id,
+					name: item.name, 
+					description: item.description,
+					image: item.image, 
+					price: item.price,
+					rating: item.rating
+					})}>
+			<View 
+				style={[styles.flex, styles.column, styles.recommendation, styles.shadow, 
+						index === 0 ? { marginLeft: 36 } : null,
+						isLastItem ? { marginRight: 36 / 2 } : null,
+					]}
+			>
+				<View style={[styles.flex, styles.recommendationHeader]}>
+				<Image style={[styles.recommendationImage]} source={{ uri: item.image }} />
+				</View>
+				<View style={[styles.flex, styles.column, { justifyContent: 'space-evenly', padding: 36 / 2 }]}>
+				<Text style={{ fontSize: 16 * 1.25, fontWeight: '500', paddingBottom: 36 / 4.5, }}>{item.name}</Text>
+				<Text style={{ color: '#BCCCD4' }}>{item.description}</Text>
+				</View>
+				<View style={[
+					styles.row,
+					{ alignItems: 'center', justifyContent: 'space-between' }
+				]}>
+					<Text style={{ color: '#007BFA', marginLeft: 30, fontSize: 22, fontWeight: 'bold'}}>
+					{item.price}$
+					</Text>
+				</View>
 			</View>
-			</View>
-			<View style={[styles.flex, styles.column, { justifyContent: 'space-evenly', padding: 36 / 2 }]}>
-			<Text style={{ fontSize: 16 * 1.25, fontWeight: '500', paddingBottom: 36 / 4.5, }}>{item.name}</Text>
-			<Text style={{ color: '#BCCCD4' }}>{item.description}</Text>
-			</View>
-			<View style={[
-				styles.row,
-				{ alignItems: 'center', justifyContent: 'space-between' }
-			]}>
-				<Text style={{ color: '#007BFA', marginLeft: 30, fontSize: 22, fontWeight: 'bold'}}>
-				{item.price}$
-				</Text>
-			</View>
-		</View>
 		</TouchableOpacity>
 	)
 	}
