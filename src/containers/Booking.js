@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, SafeAreaView, Text, StyleSheet, FlatList, TouchableOpacity, Image} from 'react-native';
+import color from '../css/ColorConstant'
 export default class Booking extends React.Component {
 	renderRoomTypeCard(item, index) {
-		const isLastItem = index === roomType.length - 1;
 		return(
 			<TouchableOpacity 
 				activeOpacity = {0.8} 
@@ -16,53 +16,49 @@ export default class Booking extends React.Component {
 						rating: item.rating
 						})}>
 				<View 
-					style={{flex: 1 }, [
-							index === 0 ? { marginLeft: 36 } : null,
-							isLastItem ? { marginRight: 36 / 2 } : null,
-						]}
+					style={{ flex: 1,  width: '100%',paddingHorizontal: 5, flexDirection: 'row', backgroundColor: 'rgb(236, 241, 247)', marginBottom: 1, borderRadius: 8}}
 				>
-					<View style={[styles.flex, styles.recommendationHeader]}>
-					<Image 
-					style={{height: 100, width: 100}}
+				<Image 
+					style={{height: 150, width: 150, borderRadius: 5}}
 					source={{ uri: item.image }} />
-					</View>
-					<View style={[styles.flex, styles.column, { justifyContent: 'space-evenly', padding: 36 / 2 }]}>
-					<Text style={{ fontSize: 16 * 1.25, fontWeight: '500', paddingBottom: 36 / 4.5, }}>{item.name}</Text>
-					<Text style={{ color: '#BCCCD4' }}>{item.description}</Text>
-					</View>
-					<View style={[
-						styles.row,
-						{ alignItems: 'center', justifyContent: 'space-between' }
-					]}>
-						<Text style={{ color: '#007BFA', marginLeft: 30, fontSize: 22, fontWeight: 'bold'}}>
-						{item.price}$
-						</Text>
+					<View style = {{flex: 1, flexDirection: 'column', flexWrap: 'wrap', marginLeft: 5}}>
+						<View style={{ flexDirection: 'column', flexWrap: 'wrap'}}>
+							<Text style={{ fontSize: 16 * 1.5, fontWeight: 'bold', paddingBottom: 36 / 4.5, color: 'black'}}>{item.name}</Text>
+							<Text style={{ color: 'black' }}>{item.description.split('').slice(0, 50)} ...</Text>
+						</View>
+						<View style={{flex: 1, alignItems: 'flex-end', marginRight: 30, marginTop: 30}}>
+							<Text style={{ color: color.green, fontSize: 22, fontWeight: 'bold'}}>
+							{item.price}$
+							</Text>
+						</View>
 					</View>
 				</View>
+				
 			</TouchableOpacity>
 		)
 		}
 	render() {
     	return (
 			<SafeAreaView style= {styles.roomList}>
-			<FlatList 
-						pagingEnabled
-						scrollEnabled
-						showsHorizontalScrollIndicator = {false}
-						scrollEventThrottle = {16}
-						snapToAlignment = "center"
-						data = {roomType}
-						keyExtractor = {(item, index)=> `${item.id}`} 
-						renderItem={({ item, index }) => this.renderRoomTypeCard(item, index)}
-					/>
-		
+				<FlatList 
+					scrollEnabled
+					showsVerticalScrollIndicator = {false}
+					scrollEventThrottle = {16}
+					snapToAlignment = 'center'
+					decelerationRate = {0}
+					data = {roomType}
+					keyExtractor = {(item, index)=> `${item.id}`} 
+					renderItem={({ item, index }) => this.renderRoomTypeCard(item, index)}
+				/>
 			</SafeAreaView>
     	);
   	}
 }
 const styles = StyleSheet.create({
-  roomList: {
-	flexDirection: 'column'
+	roomList: {
+		height: '100%',
+		flexDirection: 'column',
+		backgroundColor: color.gray
   },
 });
 
@@ -102,5 +98,32 @@ const roomType = [
 		idCategory: 4,
 		description: 'Phòng đầy đủ tiện nghi với hai giường đôi lớn',
 		rating: 3
-	}
+	},
+	{
+		id: 5,
+		name: '123 Room',
+		image: 'https://images.unsplash.com/photo-1458906931852-47d88574a008?auto=format&fit=crop&w=800&q=80',
+		price: 159,
+		idCategory: 4,
+		description: 'Phòng đầy đủ tiện nghi với hai giường đôi lớn',
+		rating: 3
+	},
+	{
+		id: 6,
+		name: 'ert Room',
+		image: 'https://images.unsplash.com/photo-1507501336603-6e31db2be093?auto=format&fit=crop&w=800&q=80',
+		price: 99,
+		idCategory: 1,
+		description: 'Phòng đầy đủ tiện nghi với một giường đơn nhỏ',
+		rating: 4
+	},
+	{
+		id: 7,
+		name: 'AQEW Room',
+		image: 'https://images.unsplash.com/photo-1507501336603-6e31db2be093?auto=format&fit=crop&w=800&q=80',
+		price: 99,
+		idCategory: 1,
+		description: 'Phòng đầy đủ tiện nghi với một giường đơn nhỏ',
+		rating: 4
+	},
 ]

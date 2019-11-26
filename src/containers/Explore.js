@@ -100,7 +100,6 @@ export default class Explore extends React.Component {
 				<View style={[styles.column]}>
 					<FlatList 
 						horizontal
-						pagingEnabled
 						scrollEnabled
 						showsHorizontalScrollIndicator = {false}
 						scrollEventThrottle = {16}
@@ -148,14 +147,13 @@ export default class Explore extends React.Component {
 				<Image style={[styles.recommendationImage]} source={{ uri: item.image }} />
 				</View>
 				<View style={[styles.flex, styles.column, { justifyContent: 'space-evenly', padding: 36 / 2 }]}>
-				<Text style={{ fontSize: 16 * 1.25, fontWeight: '500', paddingBottom: 36 / 4.5, }}>{item.name}</Text>
-				<Text style={{ color: '#BCCCD4' }}>{item.description}</Text>
+				<Text style={{ fontSize: 20 * 1.25, fontWeight: '500', paddingBottom: 36 / 4.5, }}>{item.name}</Text>
+				<Text>{item.description.split('').slice(0, 50)} ...</Text>
 				</View>
 				<View style={[
-					styles.row,
-					{ alignItems: 'center', justifyContent: 'space-between' }
-				]}>
-					<Text style={{ color: '#007BFA', marginLeft: 30, fontSize: 22, fontWeight: 'bold'}}>
+					styles.row
+				], {alignSelf: 'flex-end', paddingHorizontal: 20}}>
+					<Text style={{ color: color.green,  fontSize: 22, fontWeight: 'bold'}}>
 					{item.price}$
 					</Text>
 				</View>
@@ -167,8 +165,8 @@ render(){
 	return(
   		<View>
 			<ScrollView 
-			showsVerticalScrollIndicator={false}
-			contentContainerStyle={{ paddingBottom: 36}}
+				showsVerticalScrollIndicator={false}
+				contentContainerStyle={{ paddingBottom: 36}}
 			>
 			{this.renderSearch()}
 			{this.renderNewsSection()}

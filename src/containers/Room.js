@@ -30,7 +30,7 @@ export default class Room extends React.Component {
     renderTitleSection() {
         return (
         <View style = {styles.titleSection}>
-            <Text style = {{fontSize: 24, padding: 10}}>{this.props.navigation.getParam('name')}</Text>
+            <Text style = {{fontSize: 30, padding: 10}}>{this.props.navigation.getParam('name')}</Text>
             {this.renderRatings(this.props.navigation.getParam('rating'))}
         </View>
         )
@@ -82,11 +82,14 @@ export default class Room extends React.Component {
         return (
            <View style = {styles.sectionContainer}>
                 <View style = {{marginLeft: 10}}>
-                <Text style = {{fontWeight: 'bold', fontSize: 22}}>
+                <Text style = {{fontWeight: 'bold', fontSize: 30, marginTop: 10, color: color.green}}>
                     {this.props.navigation.getParam('price')}$
                 </Text>
                 <Text style = {{fontWeight: '300', marginTop: 6}}>
                 <Ionicons name='md-checkmark' size={16} color='green'/> Includes taxes and fees
+                </Text>
+                <Text style = {{fontWeight: '300', marginTop: 6}}>
+                <Ionicons name='md-checkmark' size={16} color='green'/> Free cancelation in 24 hours
                 </Text>
                 </View>
             </View>
@@ -139,12 +142,13 @@ export default class Room extends React.Component {
                     {this.renderImageColectionSection()}
                     {this.renderTotalMoneySection()}
                 </ScrollView>
-                
                 <View>
-                    <Button
-                        title = 'BOOK NOW'
+                    <TouchableOpacity 
+                    style = {{backgroundColor: color.blue, height: 80, width: '100%', alignItems: 'center'}}
+                        onPress = {() =>  this.props.navigation.navigate('Information')}
                     >
-                    </Button>
+                    <Text style= {{padding: 25, fontSize: 24}}>BOOK NOW</Text>
+                    </TouchableOpacity>
                 </View>
             </SafeAreaView>
         )
@@ -161,7 +165,7 @@ const styles = StyleSheet.create( {
     },
     titleSection: {
         height: 50,
-        fontSize: 24,
+        fontSize: 30,
         backgroundColor: '#fff',
         flexDirection: 'row',
     },
