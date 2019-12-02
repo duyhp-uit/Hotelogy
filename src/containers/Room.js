@@ -9,13 +9,24 @@ import {
     Image,
     FlatList,
     StyleSheet,
+    Alert
 }
 from 'react-native'
 import {Ionicons, MaterialCommunityIcons, SimpleLineIcons, FontAwesome, FontAwesome5 } from 'react-native-vector-icons'
 import color from '../css/ColorConstant'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import DatePicker from 'react-native-datepicker'
+
 const { height, width } = Dimensions.get('screen');
 export default class Room extends React.Component {
+    constructor(props) {
+        super(props)
+        const currentDate = new Date();
+        this.state = {
+            date_start: currentDate,
+            date_end: currentDate
+        }
+    }
     renderMainImage() {
         return(
             <View style = {styles.imgTitle}>
@@ -130,7 +141,70 @@ export default class Room extends React.Component {
   
         )
     }
+    renderDateCheckSection() {
+        const currentDate = new Date()
+        return( 
+            <View style= {[styles.sectionContainer, {flexDirection: 'row', height: 80}]}>
+                <View style={{flexDirection: 'column', padding: 5}}>
+                <Text>Check-in</Text>
+                <DatePicker
+                    style={{width: 200}}
+                    date={this.state.date_start}
+                    mode="date"
+                    placeholder="select date"
+                    format="DD-MM-YYYY"
+                    minDate= {currentDate}
+                    maxDate="31-12-2099"
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    customStyles={{
+                    dateIcon: {
+                        position: 'absolute',
+                        left: 0,
+                        top: 4,
+                        marginLeft: 0
+                    },
+                    dateInput: {
+                        marginLeft: 36
+                    }
+                    // ... You can check the source to find the other keys.
+                    }}
+                    onDateChange={(date) => {this.setState({date_start: date})}}
+                />
+                </View>
+                <View style= {{backgroundColor:color.gray, height: 200, width: 1}}></View>
+                <View style={{flexDirection: 'column', padding: 5}}>
+                <Text>Check-out</Text>
+                <DatePicker
+                    style={{width: 200}}
+                    date={this.state.date_end}
+                    mode="date"
+                    placeholder="select date"
+                    format="DD-MM-YYYY"
+                    minDate= {currentDate}
+                    maxDate="31-12-2099"
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    customStyles={{
+                    dateIcon: {
+                        position: 'absolute',
+                        left: 0,
+                        top: 4,
+                        marginLeft: 0
+                    },
+                    dateInput: {
+                        marginLeft: 36
+                    }
+                    // ... You can check the source to find the other keys.
+                    }}
+                    onDateChange={(date) => {this.setState({date_end: date})}}
+                />
+                </View>
+            </View>
+        )
+    }
     render() {
+        
         return(
             <SafeAreaView style = {{flex: 1, backgroundColor: color.gray}}>
                 <ScrollView
@@ -138,16 +212,30 @@ export default class Room extends React.Component {
                     contentContainerStyle={{ paddingBottom: 36}}>
                     {this.renderMainImage()}
                     {this.renderTitleSection()}
+                    {this.renderDateCheckSection()}
                     {this.renderDetailRoomSection()}
                     {this.renderImageColectionSection()}
                     {this.renderTotalMoneySection()}
                 </ScrollView>
                 <View>
                     <TouchableOpacity 
-                    style = {{backgroundColor: color.blue, height: 80, width: '100%', alignItems: 'center'}}
-                        onPress = {() =>  this.props.navigation.navigate('Information')}
+                    style = {{backgroundColor: color.blue, height: 60, width: '100%', alignItems: 'center'}}
+                        onPress = {() => {
+                            if (this.state.date_start <= this.state.date_end) {
+                                this.props.navigation.navigate('Information', {
+                                    id: this.props.navigation.getParam('id'),
+                                    name: this.props.navigation.getParam('name'),
+                                    description: this.props.navigation.getParam('description'),
+                                    image: this.props.navigation.getParam('image'),
+                                    price: this.props.navigation.getParam('price'),
+                                    rating: this.props.navigation.getParam('rating')
+                                })
+                            } else {
+                                Alert.alert('Date check-in cannot be greater than date check-out! Please check again.')
+                            }
+                        }}
                     >
-                    <Text style= {{padding: 25, fontSize: 24}}>BOOK NOW</Text>
+                    <Text style= {{padding: 16, fontSize: 24}}>BOOK NOW</Text>
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>

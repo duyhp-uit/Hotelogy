@@ -11,6 +11,7 @@ import Profile from './src/containers/Profile'
 import Room from  './src/containers/Room'
 import ZoomImage from './src/components/ZoomImage'
 import InfoInput from './src/containers/InfoInput'
+import FinishBooking from './src/containers/FinishBooking'
 import {YellowBox} from 'react-native';
 
 YellowBox.ignoreWarnings(['Warning: ...']);
@@ -46,6 +47,12 @@ const ExploreStack = createStackNavigator({
 		navigationOptions: {
 			headerTitle: 'Reservation'
 		}
+	},
+	FinishBooking: {
+		screen: FinishBooking,
+		navigationOptions: {
+			headerTitle: 'Finish Booking',
+		}
 	}
 });
 const BookingStack = createStackNavigator({
@@ -71,7 +78,13 @@ const BookingStack = createStackNavigator({
 	Information: {
 		screen: InfoInput,
 		navigationOptions: {
-			headerTitle: 'Reservation',
+			headerTitle: 'Information',
+		}
+	},
+	FinishBooking: {
+		screen: FinishBooking,
+		navigationOptions: {
+			headerTitle: 'Finish Booking',
 		}
 	}
 })
