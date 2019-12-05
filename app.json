@@ -12,13 +12,14 @@
     "android": {
       "package": "com.yourcompany.yourappname"
     },
+
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FEF9B0"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -28,7 +29,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.yourcompany.yourappname"
+      "bundleIdentifier": "com.yourcompany.yourappname",
+      "splash": {
+        "image": "./assets/splash.png",
+        "resizeMode": "contain"
+      }
     },
     "description": ""
   }

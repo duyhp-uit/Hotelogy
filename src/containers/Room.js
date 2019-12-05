@@ -21,11 +21,14 @@ const { height, width } = Dimensions.get('screen');
 export default class Room extends React.Component {
     constructor(props) {
         super(props)
-        const currentDate = new Date();
+        var currentDate = new Date();
+        var tomorrow = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1);
         this.state = {
             date_start: currentDate,
-            date_end: currentDate
+            date_end: tomorrow
+
         }
+       
     }
     renderMainImage() {
         return(
@@ -94,7 +97,7 @@ export default class Room extends React.Component {
            <View style = {styles.sectionContainer}>
                 <View style = {{marginLeft: 10}}>
                 <Text style = {{fontWeight: 'bold', fontSize: 30, marginTop: 10, color: color.green}}>
-                    {this.props.navigation.getParam('price')}$
+                    {this.props.navigation.getParam('price')}$<Text style = {{fontWeight: 'bold', fontSize: 30, marginTop: 10, color: 'black'}}>/day</Text>
                 </Text>
                 <Text style = {{fontWeight: '300', marginTop: 6}}>
                 <Ionicons name='md-checkmark' size={16} color='green'/> Includes taxes and fees
@@ -131,18 +134,16 @@ export default class Room extends React.Component {
                 onPress = {() => this.props.navigation.navigate('ZoomImage', {
                     image: item.link
                 })}
-            >          
+            >
                 <Image 
                     style = {{width: 140, height: 138, marginTop: 1}}
                     source = {{uri: item.link}}
                 >
             </Image>
             </TouchableOpacity>
-  
         )
     }
     renderDateCheckSection() {
-        const currentDate = new Date()
         return( 
             <View style= {[styles.sectionContainer, {flexDirection: 'row', height: 80}]}>
                 <View style={{flexDirection: 'column', padding: 5}}>
@@ -152,9 +153,9 @@ export default class Room extends React.Component {
                     date={this.state.date_start}
                     mode="date"
                     placeholder="select date"
-                    format="DD-MM-YYYY"
-                    minDate= {currentDate}
-                    maxDate="31-12-2099"
+                    format="YYYY-MM-DD"
+                    minDate= {this.state.date_start}
+                    maxDate="31/12/2099"
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
                     customStyles={{
@@ -180,8 +181,8 @@ export default class Room extends React.Component {
                     date={this.state.date_end}
                     mode="date"
                     placeholder="select date"
-                    format="DD-MM-YYYY"
-                    minDate= {currentDate}
+                    format="YYYY-MM-DD"
+                    minDate= {this.state.date_start}
                     maxDate="31-12-2099"
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
@@ -222,20 +223,22 @@ export default class Room extends React.Component {
                     style = {{backgroundColor: color.blue, height: 60, width: '100%', alignItems: 'center'}}
                         onPress = {() => {
                             if (this.state.date_start <= this.state.date_end) {
-                                this.props.navigation.navigate('Information', {
+                                this.props.navigation.navigate('FinishBooking', {
                                     id: this.props.navigation.getParam('id'),
                                     name: this.props.navigation.getParam('name'),
                                     description: this.props.navigation.getParam('description'),
                                     image: this.props.navigation.getParam('image'),
                                     price: this.props.navigation.getParam('price'),
-                                    rating: this.props.navigation.getParam('rating')
+                                    rating: this.props.navigation.getParam('rating'),
+                                    date_start: this.state.date_start,
+                                    date_end: this.state.date_end
                                 })
                             } else {
                                 Alert.alert('Date check-in cannot be greater than date check-out! Please check again.')
                             }
                         }}
                     >
-                    <Text style= {{padding: 16, fontSize: 24}}>BOOK NOW</Text>
+                    <Text style= {{padding: 16, fontSize: 28}}>Reserve</Text>
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>
