@@ -12,12 +12,11 @@
     "android": {
       "package": "com.yourcompany.yourappname"
     },
-
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+     
       "resizeMode": "contain",
       "backgroundColor": "#FEF9B0"
     },
@@ -31,10 +30,13 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.yourcompany.yourappname",
       "splash": {
-        "image": "./assets/splash.png",
+        
         "resizeMode": "contain"
       }
     },
-    "description": ""
-  }
+    "description": "",
+    "entryPoint": "node_modules/expo/AppEntry.js"
+  },
+  "displayName": "Hotelogy1",
+  "name": "Hotelogy1"
 }
