@@ -22,13 +22,17 @@ export default class Room extends React.Component {
     constructor(props) {
         super(props)
         var currentDate = new Date();
-        var tomorrow = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1);
+        if (currentDate.getDate() < 10) {
+             var formatedDate = currentDate.getFullYear() + "/" + (currentDate.getMonth() + 1) + "/0" + currentDate.getDay()
+        }
+        else {
+            var formatedDate = currentDate.getFullYear() + "/" + (currentDate.getMonth() + 1) + "/" + currentDate.getDay()
+        }
         this.state = {
-            date_start: currentDate,
-            date_end: tomorrow
+            date_start: formatedDate,
+            date_end: formatedDate
 
         }
-       
     }
     renderMainImage() {
         return(
@@ -144,6 +148,7 @@ export default class Room extends React.Component {
         )
     }
     renderDateCheckSection() {
+        var currentDate = new Date();
         return( 
             <View style= {[styles.sectionContainer, {flexDirection: 'row', height: 80}]}>
                 <View style={{flexDirection: 'column', padding: 5}}>
@@ -153,9 +158,9 @@ export default class Room extends React.Component {
                     date={this.state.date_start}
                     mode="date"
                     placeholder="select date"
-                    format="YYYY-MM-DD"
-                    minDate= {this.state.date_start}
-                    maxDate="31/12/2099"
+                    format="YYYY/MM/DD"
+                    minDate= {currentDate}
+                    maxDate="2099/12/31"
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
                     customStyles={{
@@ -181,9 +186,9 @@ export default class Room extends React.Component {
                     date={this.state.date_end}
                     mode="date"
                     placeholder="select date"
-                    format="YYYY-MM-DD"
-                    minDate= {this.state.date_start}
-                    maxDate="31-12-2099"
+                    format="YYYY/MM/DD"
+                    minDate= {currentDate}
+                    maxDate="2099/12/31"
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
                     customStyles={{

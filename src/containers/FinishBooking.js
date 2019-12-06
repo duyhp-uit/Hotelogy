@@ -23,7 +23,6 @@ export default class FinishBooking extends React.Component {
         const name = this.props.navigation.getParam('name');
         const price = this.props.navigation.getParam('price')
         var date_start = this.props.navigation.getParam('date_start')
-        console.log(String(date_start))
         const date_end = this.props.navigation.getParam('date_end')
         const num_days = (Date.parse(date_end) - Date.parse(date_start))/ (1000 * 3600 * 24) + 1;
         return(
