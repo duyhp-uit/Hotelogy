@@ -94,7 +94,7 @@ export default class Explore extends React.Component {
 				>
 				<Text style={{ marginLeft: 30, fontSize: 25 }}>Các loại phòng</Text>
 				<TouchableOpacity activeOpacity={0.5} onPress = {() => this.props.navigation.navigate('Booking')}>
-					<Text style={[styles.loadMore]}>More</Text>
+					<Text style={[styles.loadMore]}>See All</Text>
 				</TouchableOpacity>
 				</View>
 				<View style={[styles.column]}>
