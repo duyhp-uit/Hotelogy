@@ -62,7 +62,6 @@ export default class InfoInput extends React.Component {
                                 valid = false;
                             }
                         })
-                        console.log(valid)
                         if (valid) {
                             this.props.navigation.navigate('FinishBooking', {
                             id: this.props.navigation.getParam('id'),
@@ -71,6 +70,8 @@ export default class InfoInput extends React.Component {
                             image: this.props.navigation.getParam('image'),
                             price: this.props.navigation.getParam('price'),
                             rating: this.props.navigation.getParam('rating'),
+                            date_start: this.props.navigation.getParam('date_start'),
+                            date_end: this.props.navigation.getParam('date_end'),
                             name_guest: this.state.name,
                             phone_number: this.state.phone_number,
                             address: this.state.address,

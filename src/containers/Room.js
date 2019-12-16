@@ -49,7 +49,8 @@ export default class Room extends React.Component {
         return (
         <View style = {styles.titleSection}>
             <Text style = {{fontSize: 30, padding: 10}}>{this.props.navigation.getParam('name')}</Text>
-            {this.renderRatings(this.props.navigation.getParam('rating'))}
+            <Text style = {{fontSize: 26, fontWeight: 'bold', marginTop: 10, marginLeft: 10}}>{this.renderRatings(this.props.navigation.getParam('rating'))}</Text>
+
         </View>
         )
     }
@@ -228,7 +229,7 @@ export default class Room extends React.Component {
                     style = {{backgroundColor: color.blue, height: 60, width: '100%', alignItems: 'center'}}
                         onPress = {() => {
                             if (this.state.date_start <= this.state.date_end) {
-                                this.props.navigation.navigate('FinishBooking', {
+                                this.props.navigation.navigate('InfoInput', {
                                     id: this.props.navigation.getParam('id'),
                                     name: this.props.navigation.getParam('name'),
                                     description: this.props.navigation.getParam('description'),

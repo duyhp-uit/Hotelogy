@@ -12,6 +12,8 @@ import Room from  './src/containers/Room'
 import ZoomImage from './src/components/ZoomImage'
 import InfoInput from './src/containers/InfoInput'
 import FinishBooking from './src/containers/FinishBooking'
+import FeedbackForm from './src/containers/FeedbackForm'
+import ProfileForm from './src/containers/ProfileForm'
 import {YellowBox} from 'react-native';
 
 YellowBox.ignoreWarnings(['Warning: ...']);
@@ -42,7 +44,7 @@ const ExploreStack = createStackNavigator({
 			headershown: false,
 		},
 	},
-	Information: {
+	InfoInput: {
 		screen: InfoInput,
 		navigationOptions: {
 			headerTitle: 'Reservation'
@@ -75,7 +77,7 @@ const BookingStack = createStackNavigator({
 			headershown: false,
 		},
 	},
-	Information: {
+	InfoInput: {
 		screen: InfoInput,
 		navigationOptions: {
 			headerTitle: 'Information',
@@ -85,6 +87,26 @@ const BookingStack = createStackNavigator({
 		screen: FinishBooking,
 		navigationOptions: {
 			headerTitle: 'Finish Booking',
+		}
+	}
+})
+const ProfileStack = createStackNavigator({
+	Profile: {
+		screen: Profile,
+		navigationOptions: {
+			headerTitle: 'Profile',
+		}
+	},
+	FeedbackForm: {
+		screen: FeedbackForm,
+		navigationOptions: {
+			headerTitle: 'Feedback',
+		}
+	},
+	ProfileForm: {
+		screen: ProfileForm,
+		navigationOptions: {
+			headerTitle: 'Edit Profile',
 		}
 	}
 })
@@ -117,7 +139,7 @@ const TabNavigator = createBottomTabNavigator({
 		},
 	},
 	Profile: {
-		screen: Profile,
+		screen: ProfileStack,
 		navigationOptions: {
 			tabBarIcon: ({ focused, tintColor }) => {
 				const iconName = `ios-person`;

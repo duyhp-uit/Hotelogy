@@ -50,12 +50,12 @@ export default class FinishBooking extends React.Component {
                     style = {{width:130, height: 130,margin: 15, borderRadius: 10}}
                     source = {{uri:urlImg}}
                     ></Image>
-                    <Text style = {{fontSize: 26, fontWeight: 'bold', paddingVertical: 40}}>{name}</Text>
-                    <Text style = {{fontSize: 26, fontWeight: 'bold', paddingVertical: 40}}>{this.renderRatings(rating)}</Text>
+                    <Text style = {{fontSize: 30, fontWeight: 'bold', paddingVertical: 40}}>{name}</Text>
+                    <Text style = {{fontSize: 26, fontWeight: 'bold', paddingVertical: 40, marginLeft: 10}}>{this.renderRatings(rating)}</Text>
                 </View>
                 <View style = {styles.informationSectionContainer}>
                     <Text style = {styles.textInfo}>
-                        Full Name: {name_guest} Huynh Phuong Duy
+                        Full Name: {name_guest}
                     </Text>
                     <Text style = {styles.textInfo}>
                         Email: {email}

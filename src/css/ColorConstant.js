@@ -3,7 +3,8 @@ export default color = {
         yellow: 'rgb(233, 200, 16)',
         blue: 'rgb(78, 153, 245)',
         green: 'rgb(80, 202, 121)',
-        white: '#fff'
+        white: '#fff',
+        lessGray: 'rgb(221, 237, 241)'
     }
     
 
