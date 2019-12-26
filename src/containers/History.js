@@ -2,6 +2,26 @@ import React from 'react';
 import {View, SafeAreaView, Text, StyleSheet, FlatList, TouchableOpacity, Image} from 'react-native';
 import color from '../css/ColorConstant'
 export default class History extends React.Component {
+	constructor(props) {
+        super(props)
+        this.state = {
+            history: ''
+        }
+    }
+	componentDidMount() {
+		fetch(baseUrl + 'api/history?email=postman@gmail.com')
+		.then((response) => response.json())
+		.then((responseJson) => {
+		  this.setState({
+			history: responseJson.data,
+		  }, function(){
+
+		  });  
+		})
+		.catch((error) =>{
+		  console.error(error);
+		});
+	}
 	renderRoomTypeCard(item, index) {
         const paid = <View style={{flex: 1, alignItems: 'flex-start', padding: 5}}>
         <Text style={{ color: color.green, fontSize: 22, fontWeight: 'bold'}}>
@@ -17,25 +37,18 @@ export default class History extends React.Component {
 		return(
 			<TouchableOpacity 
 				activeOpacity = {0.8} 
-				onPress = {() => this.props.navigation.navigate('Room', 
-						{
-						id: item.id,
-						name: item.name, 
-						description: item.description,
-						image: item.image, 
-						price: item.price,
-						rating: item.rating
-						})}>
+				onPress = {() => {}}>
 				<View 
 					style={{ flex: 1,  width: '100%',padding: 5, marginVertical:10, flexDirection: 'row', backgroundColor: 'rgb(236, 241, 247)', marginBottom: 1, borderRadius: 8}}
 				>
 				<Image 
 					style={{height: 150, width: 150, borderRadius: 5}}
-					source={{ uri: item.image }} />
+					source={{ uri: baseUrl + item.image }} />
 					<View style = {{flex: 1, flexDirection: 'column', flexWrap: 'wrap', marginLeft: 5}}>
 						<View style={{ flexDirection: 'column', flexWrap: 'wrap'}}>
-							<Text style={{ fontSize: 16 * 1.5, fontWeight: 'bold', paddingBottom: 36 / 4.5, color: 'black'}}>{item.name}</Text>
-                            <Text style = {{fontSize: 16, fontWeight: '300'}}>12 Dec - 14 Dec</Text>
+							<Text style = {{fontSize: 16, fontWeight: '400'}}>ID Booking: {item.id}</Text>
+							<Text style={{ fontSize: 16 * 1.5, fontWeight: 'bold', paddingBottom: 36 / 4.5, color: 'black'}}>{item.categoryRoomName}</Text>
+                            <Text style = {{fontSize: 16, fontWeight: '300'}}>{item.DateIn.split('').slice(0,10)} - {item.DateOut.split('').slice(0,10)}</Text>
 						</View>
 						<View style={{flex: 1, alignItems: 'flex-start', padding: 5}}>
 							<Text style={{ color: color.green, fontSize: 22, fontWeight: 'bold'}}>
@@ -58,9 +71,11 @@ export default class History extends React.Component {
 					scrollEventThrottle = {16}
 					snapToAlignment = 'center'
 					decelerationRate = {0}
-					data = {roomType}
+					data = {this.state.history}
 					keyExtractor = {(item, index)=> `${item.id}`} 
 					renderItem={({ item, index }) => this.renderRoomTypeCard(item, index)}
+					inverted={true}
+						
 				/>
 			</SafeAreaView>
     	);
