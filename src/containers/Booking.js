@@ -16,7 +16,7 @@ export default class Booking extends React.Component {
 						rating: item.rating
 						})}>
 				<View 
-					style={{ flex: 1,  width: '100%',paddingHorizontal: 5, flexDirection: 'row', backgroundColor: 'rgb(236, 241, 247)', marginBottom: 1, borderRadius: 8}}
+					style={{ flex: 1,  width: '100%',padding: 5, marginVertical:10, flexDirection: 'row', backgroundColor: 'rgb(236, 241, 247)', marginBottom: 1, borderRadius: 8}}
 				>
 				<Image 
 					style={{height: 150, width: 150, borderRadius: 5}}

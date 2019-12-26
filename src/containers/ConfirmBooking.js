@@ -15,7 +15,7 @@ import {Ionicons, MaterialCommunityIcons, SimpleLineIcons, FontAwesome, FontAwes
 import color from '../css/ColorConstant'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 const { height, width } = Dimensions.get('screen');
-export default class FinishBooking extends React.Component {
+export default class ConfirmBooking extends React.Component {
     renderRatings(rating) {
         const star = new Array(5).fill(0);
         return (
@@ -54,7 +54,7 @@ export default class FinishBooking extends React.Component {
                     source = {{uri:urlImg}}
                     ></Image>
                     <Text style = {{fontSize: 30, fontWeight: 'bold', paddingVertical: 40}}>{name}</Text>
-                    <Text style = {{fontSize: 26, fontWeight: 'bold', paddingVertical: 40, marginLeft: 10}}>{this.renderRatings(rating)}</Text>
+                    <Text style = {{fontSize: 26, fontWeight: 'bold', paddingVertical: 40, marginLeft: 10}}>asdasd</Text>
                 </View>
                 <View style = {styles.informationSectionContainer}>
                     <Text style = {styles.textInfo}>
@@ -99,7 +99,7 @@ export default class FinishBooking extends React.Component {
                 <View>
                     <TouchableOpacity 
                     style = {{backgroundColor: color.blue, height: 60, width: '100%', alignItems: 'center'}}
-                        onPress = {() => {this.navigation.navigate('ConfirmBooking')}
+                        onPress = {() => {}
                         }
                     >
                     <Text style= {{padding: 14, fontSize: 28}}>Book Now</Text>
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
         paddingVertical: 5
     },
     titleSectionContainer: {
-        flexDirection: 'row',
+        flex:1,
         backgroundColor: color.white,
         height: 160
     },

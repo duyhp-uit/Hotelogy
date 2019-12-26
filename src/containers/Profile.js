@@ -25,7 +25,7 @@ class Profile extends Component {
 				</View>
 				</TouchableWithoutFeedback>
 				<TouchableWithoutFeedback
-					onPress= {() => console.log('duy')}
+					onPress= {() => this.props.navigation.navigate('History')}
 				>
 				<View style = {styles.itemProfileSection}>
 					<Text style = {styles.itemText}>History</Text>

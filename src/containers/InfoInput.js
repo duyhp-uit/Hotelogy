@@ -26,6 +26,7 @@ export default class InfoInput extends React.Component {
         var valid = true;
         return(
             <SafeAreaView style={{flex: 1, paddingHorizontal: 10}}>
+                <Text style = {{fontSize: 24}}> Please enter full information: </Text>
                 <TextInput
                     style= {styles.input}
                     autoFocus

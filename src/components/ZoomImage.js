@@ -13,14 +13,12 @@ from 'react-native'
 import color from '../css/ColorConstant'
 import ImageViewer from 'react-native-image-zoom-viewer';
  
-
- 
 export default class Room extends React.Component {
     render () {
         const images = [{
             // Simplest usage.
             url: this.props.navigation.getParam('image'),
-        }, 
+        },
         {
             // Simplest usage.
             url: 'https://cdn.vietnambiz.vn/stores/news_dataimages/lannh/102016/13/18/4649_abc.jpg'

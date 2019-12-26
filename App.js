@@ -14,6 +14,7 @@ import InfoInput from './src/containers/InfoInput'
 import FinishBooking from './src/containers/FinishBooking'
 import FeedbackForm from './src/containers/FeedbackForm'
 import ProfileForm from './src/containers/ProfileForm'
+import History from './src/containers/History'
 import {YellowBox} from 'react-native';
 
 YellowBox.ignoreWarnings(['Warning: ...']);
@@ -107,6 +108,12 @@ const ProfileStack = createStackNavigator({
 		screen: ProfileForm,
 		navigationOptions: {
 			headerTitle: 'Edit Profile',
+		}
+	},
+	History: {
+		screen: History,
+		navigationOptions: {
+			headerTitle: 'History',
 		}
 	}
 })

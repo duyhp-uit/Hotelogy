@@ -16,8 +16,9 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "resizeMode": "contain",
-      "backgroundColor": "#FEF9B0"
+      "resizeMode": "cover",
+      "backgroundColor": "#FEF9B0",
+      "image": "./assets/splash1.png"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -29,7 +30,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.yourcompany.yourappname",
       "splash": {
-        "resizeMode": "contain"
+        "resizeMode": "cover",
+        "image": "./assets/splash1.png"
       }
     },
     "description": "",
