@@ -14,6 +14,7 @@ import InfoInput from './src/containers/InfoInput'
 import FinishBooking from './src/containers/FinishBooking'
 import FeedbackForm from './src/containers/FeedbackForm'
 import ProfileForm from './src/containers/ProfileForm'
+import ConfirmBooking from './src/containers/ConfirmBooking'
 import History from './src/containers/History'
 import {YellowBox} from 'react-native';
 
@@ -88,6 +89,12 @@ const BookingStack = createStackNavigator({
 		screen: FinishBooking,
 		navigationOptions: {
 			headerTitle: 'Finish Booking',
+		}
+	},
+	ConfirmBooking: {
+		screen: FinishBooking,
+		navigationOptions: {
+			headerTitle: 'Confirm',
 		}
 	}
 })

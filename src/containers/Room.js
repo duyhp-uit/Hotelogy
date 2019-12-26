@@ -16,6 +16,7 @@ import {Ionicons, MaterialCommunityIcons, SimpleLineIcons, FontAwesome, FontAwes
 import color from '../css/ColorConstant'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import DatePicker from 'react-native-datepicker'
+import baseUrl from '../config/baseUrl';
 
 const { height, width } = Dimensions.get('screen');
 export default class Room extends React.Component {
@@ -33,6 +34,34 @@ export default class Room extends React.Component {
             date_end: formatedDate
 
         }
+    }
+    reserveRoom() {
+        return fetch(baseUrl + 'api/getRoomAvailable/' + this.props.navigation.getParam('id'))
+              .then((response) => response.json())
+              .then((responseJson) => {
+                  if (responseJson.code == 200) 
+                  {
+                    if (this.state.date_start <= this.state.date_end) {
+                        this.props.navigation.navigate('InfoInput', {
+                            id: this.props.navigation.getParam('id'),
+                            name: this.props.navigation.getParam('name'),
+                            description: this.props.navigation.getParam('description'),
+                            image: this.props.navigation.getParam('image'),
+                            price: this.props.navigation.getParam('price'),
+                            rating: this.props.navigation.getParam('rating'),
+                            date_start: this.state.date_start,
+                            date_end: this.state.date_end
+                        })
+                    } else {
+                        Alert.alert('Date check-in cannot be greater than date check-out! Please check again.')
+                    }
+                  } else {
+                        Alert.alert(responseJson.message)
+                  }
+              })
+              .catch((error) => {
+                console.error(error);
+              });
     }
     renderMainImage() {
         return(
@@ -159,9 +188,9 @@ export default class Room extends React.Component {
                     date={this.state.date_start}
                     mode="date"
                     placeholder="select date"
-                    format="YYYY/MM/DD"
+                    format="YYYY-MM-DD"
                     minDate= {currentDate}
-                    maxDate="2099/12/31"
+                    maxDate="2099-12-31"
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
                     customStyles={{
@@ -187,9 +216,9 @@ export default class Room extends React.Component {
                     date={this.state.date_end}
                     mode="date"
                     placeholder="select date"
-                    format="YYYY/MM/DD"
+                    format="YYYY-MM-DD"
                     minDate= {currentDate}
-                    maxDate="2099/12/31"
+                    maxDate="2099-12-31"
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
                     customStyles={{
@@ -227,22 +256,7 @@ export default class Room extends React.Component {
                 <View>
                     <TouchableOpacity 
                     style = {{backgroundColor: color.blue, height: 60, width: '100%', alignItems: 'center'}}
-                        onPress = {() => {
-                            if (this.state.date_start <= this.state.date_end) {
-                                this.props.navigation.navigate('InfoInput', {
-                                    id: this.props.navigation.getParam('id'),
-                                    name: this.props.navigation.getParam('name'),
-                                    description: this.props.navigation.getParam('description'),
-                                    image: this.props.navigation.getParam('image'),
-                                    price: this.props.navigation.getParam('price'),
-                                    rating: this.props.navigation.getParam('rating'),
-                                    date_start: this.state.date_start,
-                                    date_end: this.state.date_end
-                                })
-                            } else {
-                                Alert.alert('Date check-in cannot be greater than date check-out! Please check again.')
-                            }
-                        }}
+                        onPress = {() => {this.reserveRoom()}}
                     >
                     <Text style= {{padding: 16, fontSize: 28}}>Reserve</Text>
                     </TouchableOpacity>

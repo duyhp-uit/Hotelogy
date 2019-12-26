@@ -9,6 +9,7 @@ import {
     ScrollView,
     
 } from 'react-native'
+import baseUrl from "../config/baseUrl";
 const {height, width} = Dimensions.get('screen');
 export default class News extends React.Component {
     render() {
@@ -17,14 +18,14 @@ export default class News extends React.Component {
                 <ScrollView>
                 <Image
                     style = {styles.imgTitle}
-                    source={{uri: this.props.navigation.getParam('image')}}   
+                    source={{uri: baseUrl + this.props.navigation.getParam('image')}}   
                 ></Image>
                 <View style = {styles.container}>
                     <Text style = {styles.title}>
                     {this.props.navigation.getParam('name')}
                     </Text>
                     <Text style = {styles.datetime}>
-                        Thứ 4, 20-10-2019
+                        {this.props.navigation.getParam('created_at')}
                     </Text>
                     <View style = {{borderStyle: 'solid', borderWidth: 2, borderBottomColor: '#fff'}}>
                     </View>

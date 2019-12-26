@@ -3,37 +3,21 @@ import {Alert, AsyncStorage, Text, StyleSheet, ScrollView, TouchableOpacity} fro
 import SafeAreaView from 'react-native-safe-area-view';
 import { TextInput } from 'react-native-gesture-handler';
 
-import * as RNFS from 'react-native-fs'
 import color from '../css/ColorConstant'
 class ProfileForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            'name': profile.name,
-            'email': profile.email,
-            'address': profile.address,
-            'phone_number': profile.phone_number,
-            'id': profile.id
+            'name': "profile.name",
+            'email': "profile.email",
+            'address': "profile.address",
+            'phone_number': "profile.phone_number",
+            'id': "profile.id"
         }
     }
     updateProfile(form, file) {
-        // AsyncStorage.setItem('UID123', JSON.stringify(file), () => {
-        //     AsyncStorage.mergeItem('UID123', JSON.stringify(form), () => {
-        //       AsyncStorage.getItem('UID123', (err, result) => {
-        //          });
-        //     });
-        //   });
-        RNFS.writeFile('../data/test', 'content', 'ascii').then(res => {
-        
-        })
-        .catch(err => {
-            
-            console.log(err.message, err.code);
-        
-        });
     }
 	render() {
-        console.log(profile);
     	return (
 			<SafeAreaView>
                 <ScrollView>
@@ -68,7 +52,7 @@ class ProfileForm extends Component {
                 />
                 <TouchableOpacity 
                     style = {{width: 90, height: 50, backgroundColor: color.blue, alignSelf: 'center'}}
-                    onPress = {() => this.updateProfile(this.state, profile)     
+                    onPress = {() => this.updateProfile(this.state)     
                     }
                 >
                     <Text style = {{alignSelf: 'center', justifyContent: 'center', padding: 15, fontSize: 20}}>Update</Text>

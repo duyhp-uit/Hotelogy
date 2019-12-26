@@ -1,6 +1,6 @@
 import React from "react";
 import styles from '../css/styles';
-
+import baseUrl from '../config/baseUrl'
 import {
 	View,
 	Image,
@@ -15,14 +15,50 @@ import {
 const {height, width} = Dimensions.get('screen');
 
 export default class Explore extends React.Component {
+	constructor(props){
+		super(props);
+		this.state ={ isLoading: true,
+		dataRoom: '',
+		dataNews: ''
+		}
+	  }
+	 
+	  componentDidMount(){
+		 
+	
+		  fetch(baseUrl + 'api/news')
+		  .then((response) => response.json())
+		  .then((responseJson) => {
+			this.setState({
+			  dataNews: responseJson.data,
+			}, function(){
+			});
+		  })
+		  .catch((error) =>{
+			console.error(error);
+		  });
+		  fetch(baseUrl + 'api/room-type')
+		  .then((response1) => response1.json())
+		  .then((responseJson1) => {
+			this.setState({
+			  isLoading: false,
+			  dataRoom: responseJson1.data,
+			}, function(){
+  
+			});  
+		  })
+		  .catch((error) =>{
+			console.error(error);
+		  });
+	  }
 	scrollX = new Animated.Value(0);
 	renderNewsCard(item){
 		return(
-			<TouchableOpacity activeOpacity = {0.8} onPress = {() => this.props.navigation.navigate('News', {name: item.name, content: item.body, image: item.image})}>
+			<TouchableOpacity activeOpacity = {0.8} onPress = {() => this.props.navigation.navigate('News', {name: item.name, content: item.body, image: item.image, created_at: item.created_at})}>
 			<ImageBackground
 				style={[styles.flex, styles.destination, styles.shadow]}
 				imageStyle = {{borderRadius: 12}}
-				source= {{uri : item.image}}>
+				source= {{uri : baseUrl + item.image}}>
 				<View style={[styles.column, styles.destinationInfo, styles.shadow]}>
 					<Text style={{ fontSize: 18, fontWeight: '500', paddingBottom: 8, color: 'white'}}>
 						{item.name}
@@ -75,7 +111,7 @@ export default class Explore extends React.Component {
 					decelerationRate = {0}
 					// style={{ overflow : 'visible' }} //In IOS platform
 					onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX }} }])}
-					data = {news}
+					data = {this.state.dataNews}
 					keyExtractor = {(item, index)=> `${item.id}`}
 					renderItem = {({item}) => this.renderNewsCard(item)}
 				/>
@@ -104,7 +140,7 @@ export default class Explore extends React.Component {
 						showsHorizontalScrollIndicator = {false}
 						scrollEventThrottle = {16}
 						snapToAlignment = "center"
-						data = {roomType}
+						data = {this.state.dataRoom}
 						keyExtractor = {(item, index)=> `${item.id}`} 
 						renderItem={({ item, index }) => this.renderRoomTypeCard(item, index)}
 					/>
@@ -133,7 +169,7 @@ export default class Explore extends React.Component {
 					id: item.id,
 					name: item.name, 
 					description: item.description,
-					image: item.image, 
+					image: baseUrl + item.image, 
 					price: item.price,
 					rating: item.rating
 					})}>
@@ -144,11 +180,11 @@ export default class Explore extends React.Component {
 					]}
 			>
 				<View style={[styles.flex, styles.recommendationHeader]}>
-				<Image style={[styles.recommendationImage]} source={{ uri: item.image }} />
+				<Image style={[styles.recommendationImage]} source={{ uri: baseUrl + item.image }} />
 				</View>
 				<View style={[styles.flex, styles.column, { justifyContent: 'space-evenly', padding: 36 / 2 }]}>
 				<Text style={{ fontSize: 20 * 1.25, fontWeight: '500', paddingBottom: 36 / 4.5, }}>{item.name}</Text>
-				<Text>{item.description.split('').slice(0, 50)} ...</Text>
+				<Text>{item.description.split('').slice(0,50)} ...</Text>
 				</View>
 				<View style={[
 					styles.row
@@ -200,41 +236,4 @@ const news = [
 	}
 ]
 
-const roomType = [
-	{
-		id: 1,
-		name: 'Single Room',
-		image: 'https://images.unsplash.com/photo-1507501336603-6e31db2be093?auto=format&fit=crop&w=800&q=80',
-		price: 99,
-		idCategory: 1,
-		description: 'Phòng đầy đủ tiện nghi với một giường đơn nhỏ',
-		rating: 4
-	},
-	{
-		id: 2,
-		name: 'Couple Room',
-		image: 'https://images.unsplash.com/photo-1458906931852-47d88574a008?auto=format&fit=crop&w=800&q=80',
-		price: 129,
-		idCategory: 2,
-		description: 'Phòng đầy đủ tiện nghi với một giường đôi lớn',
-		rating: 5
-	},
-	{
-		id: 3,
-		name: 'Large Room',
-		image: 'https://images.unsplash.com/photo-1458906931852-47d88574a008?auto=format&fit=crop&w=800&q=80',
-		price: 119,
-		idCategory: 3,
-		description: 'Phòng đầy đủ tiện nghi với hai giường đơn lớn',
-		rating: 4
-	},
-	{
-		id: 4,
-		name: 'Deluxe Room',
-		image: 'https://images.unsplash.com/photo-1458906931852-47d88574a008?auto=format&fit=crop&w=800&q=80',
-		price: 159,
-		idCategory: 4,
-		description: 'Phòng đầy đủ tiện nghi với hai giường đôi lớn',
-		rating: 3
-	}
-]
+

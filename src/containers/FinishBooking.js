@@ -8,12 +8,14 @@ import {
     Button,
     Image,
     StyleSheet,
-    TextInput
+    TextInput,
+    Alert
 }
 from 'react-native'
 import {Ionicons, MaterialCommunityIcons, SimpleLineIcons, FontAwesome, FontAwesome5 } from 'react-native-vector-icons'
 import color from '../css/ColorConstant'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import baseUrl from '../config/baseUrl';
 const { height, width } = Dimensions.get('screen');
 export default class FinishBooking extends React.Component {
     renderRatings(rating) {
@@ -30,6 +32,29 @@ export default class FinishBooking extends React.Component {
                 )
             })
         )
+    }
+    bookingRoom() {
+        fetch( baseUrl + 'api/reservation', {
+         method: 'POST',
+         headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+            body: JSON.stringify({
+                room_category: this.props.navigation.getParam('id'),
+                name: this.props.navigation.getParam('name_guest'),
+                email: this.props.navigation.getParam('email'),
+                phone: this.props.navigation.getParam('phone_number'),
+                dateIn: this.props.navigation.getParam('date_start') + ' 00:00:00',
+                dateOut: this.props.navigation.getParam('date_end') + ' 00:00:00',
+                numbers: '1',
+                note: 'x'
+            }),
+            }) .then((response) => response.json())
+            .then((responseData) => {
+                Alert.alert(responseData.message)
+            })
+            .done();
     }
     render() {
         const urlImg = this.props.navigation.getParam('image');
@@ -99,7 +124,7 @@ export default class FinishBooking extends React.Component {
                 <View>
                     <TouchableOpacity 
                     style = {{backgroundColor: color.blue, height: 60, width: '100%', alignItems: 'center'}}
-                        onPress = {() => {this.navigation.navigate('ConfirmBooking')}
+                        onPress = {() => {this.bookingRoom()}
                         }
                     >
                     <Text style= {{padding: 14, fontSize: 28}}>Book Now</Text>
