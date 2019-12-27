@@ -169,7 +169,7 @@ export default class Explore extends React.Component {
 					id: item.id,
 					name: item.name, 
 					description: item.description,
-					image: baseUrl + item.image, 
+					image: item.image, 
 					price: item.price,
 					rating: item.rating
 					})}>

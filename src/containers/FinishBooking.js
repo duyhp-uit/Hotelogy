@@ -34,9 +34,16 @@ export default class FinishBooking extends React.Component {
         )
     }
     bookingRoom() {
-        fetch( baseUrl + 'api/reservation', {
-         method: 'POST',
-         headers: {
+        fetch(baseUrl + 'api/history?email=' + this.props.navigation.getParam('email'))
+		.then((response) => response.json())
+		.then((responseJson) => {
+            if (responseJson.data.length > 1) {
+                Alert.alert('Please paid previous booking!')
+            }
+            else {
+            fetch( baseUrl + 'api/reservation', {
+            method: 'POST',
+            eaders: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
         },
@@ -53,8 +60,16 @@ export default class FinishBooking extends React.Component {
             }) .then((response) => response.json())
             .then((responseData) => {
                 Alert.alert(responseData.message)
+            }). then(() => {
+                this.props.navigation.navigate('Explore')
             })
             .done();
+            }
+		})
+		.catch((error) =>{
+		  console.error(error);
+		});
+        
     }
     render() {
         const urlImg = this.props.navigation.getParam('image');
@@ -76,7 +91,7 @@ export default class FinishBooking extends React.Component {
                 <View style = {styles.titleSectionContainer}>
                     <Image 
                     style = {{width:130, height: 130,margin: 15, borderRadius: 10}}
-                    source = {{uri:urlImg}}
+                    source = {{uri:baseUrl + urlImg}}
                     ></Image>
                     <Text style = {{fontSize: 30, fontWeight: 'bold', paddingVertical: 40}}>{name}</Text>
                     <Text style = {{fontSize: 26, fontWeight: 'bold', paddingVertical: 40, marginLeft: 10}}>{this.renderRatings(rating)}</Text>
@@ -150,6 +165,7 @@ const styles = StyleSheet.create({
         height: 160
     },
     informationSectionContainer: {
+        paddingHorizontal: 10,
         marginTop: 3,
         backgroundColor: color.white,
         height: 140

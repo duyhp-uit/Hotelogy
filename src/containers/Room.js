@@ -68,7 +68,7 @@ export default class Room extends React.Component {
             <View style = {styles.imgTitle}>
                 <Image 
                     style = {{width: '100%', height: '100%'}}
-                    source = {{uri: this.props.navigation.getParam('image')}}
+                    source = {{uri: baseUrl + this.props.navigation.getParam('image')}}
                 >
                 </Image>
             </View>
@@ -76,10 +76,12 @@ export default class Room extends React.Component {
     }
     renderTitleSection() {
         return (
+        <View style = {{backgroundColor: '#fff'}}>
         <View style = {styles.titleSection}>
             <Text style = {{fontSize: 30, padding: 10}}>{this.props.navigation.getParam('name')}</Text>
-            <Text style = {{fontSize: 26, fontWeight: 'bold', marginTop: 10, marginLeft: 10}}>{this.renderRatings(this.props.navigation.getParam('rating'))}</Text>
-
+            <Text style = {{fontSize: 26, fontWeight: 'bold', marginTop: 10, marginLeft: 10}}>{this.renderRatings(5)}</Text>
+        </View>
+        <Text style = {{fontSize: 16, fontWeight: '400', marginVertical: 7, marginLeft: 10}}>{this.props.navigation.getParam('description')}</Text>
         </View>
         )
     }

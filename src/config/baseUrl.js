@@ -1,1 +1,1 @@
-export default baseUrl = 'http://192.168.1.6/hotel/public/';
+export default baseUrl = 'https://duyparadise.000webhostapp.com/';

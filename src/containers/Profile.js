@@ -1,7 +1,18 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, TouchableWithoutFeedback, Image, Button} from 'react-native';
+import {View, Text, StyleSheet, TouchableWithoutFeedback, Image, Button, AsyncStorage} from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 class Profile extends Component {
+	_retrieveData = async () => {
+        try {
+          const value = await AsyncStorage.getItem('@MySuperStore:key');
+          if (value !== null) {
+            // We have data!!
+            console.log(value);
+          }
+        } catch (error) {
+          // Error retrieving data
+        }
+      };
 	render() {
     	return (
 			<SafeAreaView>
@@ -39,7 +50,7 @@ class Profile extends Component {
 				</View>
 				</TouchableWithoutFeedback>
 				<TouchableWithoutFeedback
-					onPress= {() => console.log('duy')}
+					onPress= {() => this._retrieveData()}
 				>
 				<View style = {styles.itemProfileSection}>
 					<Text style = {styles.itemText}>Log out</Text>

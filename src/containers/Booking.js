@@ -2,6 +2,25 @@ import React from 'react';
 import {View, SafeAreaView, Text, StyleSheet, FlatList, TouchableOpacity, Image} from 'react-native';
 import color from '../css/ColorConstant'
 export default class Booking extends React.Component {
+	constructor(props) {
+		super(props) 
+		this.state = {
+			dataRoom: ''
+		}
+	}
+	componentDidMount() {
+		fetch(baseUrl + 'api/room-type')
+		.then((response) => response.json())
+		.then((responseJson) => {
+		  this.setState({
+			isLoading: false,
+			dataRoom: responseJson.data,
+		  }, function(){});  
+		})
+		.catch((error) =>{
+		  console.error(error);
+		});
+	}
 	renderRoomTypeCard(item, index) {
 		return(
 			<TouchableOpacity 
@@ -20,7 +39,7 @@ export default class Booking extends React.Component {
 				>
 				<Image 
 					style={{height: 150, width: 150, borderRadius: 5}}
-					source={{ uri: item.image }} />
+					source={{ uri: baseUrl + item.image }} />
 					<View style = {{flex: 1, flexDirection: 'column', flexWrap: 'wrap', marginLeft: 5}}>
 						<View style={{ flexDirection: 'column', flexWrap: 'wrap'}}>
 							<Text style={{ fontSize: 16 * 1.5, fontWeight: 'bold', paddingBottom: 36 / 4.5, color: 'black'}}>{item.name}</Text>
@@ -46,7 +65,7 @@ export default class Booking extends React.Component {
 					scrollEventThrottle = {16}
 					snapToAlignment = 'center'
 					decelerationRate = {0}
-					data = {roomType}
+					data = {this.state.dataRoom}
 					keyExtractor = {(item, index)=> `${item.id}`} 
 					renderItem={({ item, index }) => this.renderRoomTypeCard(item, index)}
 				/>

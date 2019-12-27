@@ -9,7 +9,7 @@ export default class History extends React.Component {
         }
     }
 	componentDidMount() {
-		fetch(baseUrl + 'api/history?email=postman@gmail.com')
+		fetch(baseUrl + 'api/history?email=tanduyht@gmail.com')
 		.then((response) => response.json())
 		.then((responseJson) => {
 		  this.setState({
@@ -55,7 +55,7 @@ export default class History extends React.Component {
 							{item.price}$
 							</Text>
 						</View>
-                   {(item.id % 2 == 0) ? paid:unpaid}
+                   {(item.status == 1) ? paid:unpaid}
 					</View>
 				</View>
 				
@@ -73,9 +73,7 @@ export default class History extends React.Component {
 					decelerationRate = {0}
 					data = {this.state.history}
 					keyExtractor = {(item, index)=> `${item.id}`} 
-					renderItem={({ item, index }) => this.renderRoomTypeCard(item, index)}
-					inverted={true}
-						
+					renderItem={({ item, index }) => this.renderRoomTypeCard(item, index)}						
 				/>
 			</SafeAreaView>
     	);

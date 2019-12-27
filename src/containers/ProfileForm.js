@@ -8,15 +8,48 @@ class ProfileForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            'name': "profile.name",
-            'email': "profile.email",
-            'address': "profile.address",
-            'phone_number': "profile.phone_number",
-            'id': "profile.id"
+            name: '',
+            email:  '',
+            address:  '',
+            phone_number:  '',
+            id: ''
         }
     }
     updateProfile(form, file) {
     }
+    _storeData = async () => {
+        try {
+            await AsyncStorage.setItem('@profile:name', JSON.stringify(this.state.name) || '');
+            await AsyncStorage.setItem('@profile:email', JSON.stringify(this.state.email) || '');
+            await AsyncStorage.setItem('@profile:address', JSON.stringify(this.state.address) || '');
+            await AsyncStorage.setItem('@profile:phone_number', JSON.stringify(this.state.phone_number) || '');
+            await AsyncStorage.setItem('@profile:id', JSON.stringify(this.state.id) || '');
+        } catch (error) {
+          // Error saving data
+        }
+      };
+      _retrieveData = async () => {
+        try {
+          var name = await AsyncStorage.getItem('@profile:name');
+          var email = await AsyncStorage.getItem('@profile:email');
+          var phone_number = await AsyncStorage.getItem('@profile:phone_number');
+          var id = await AsyncStorage.getItem('@profile:id');
+          var address = await AsyncStorage.getItem('@profile:address');
+
+          if (value !== null) {
+            // We have data!!
+                this.setState({
+                    name: value.slice(1,-1),
+                    email: value.slice(1,-1),
+                    address: value.slice(1,-1),
+                    phone_number: value.slice(1,-1),
+                    id: value.slice(1,-1)
+                })
+          }
+        } catch (error) {
+          // Error retrieving data
+        }
+      };
 	render() {
     	return (
 			<SafeAreaView>
@@ -52,10 +85,17 @@ class ProfileForm extends Component {
                 />
                 <TouchableOpacity 
                     style = {{width: 90, height: 50, backgroundColor: color.blue, alignSelf: 'center'}}
-                    onPress = {() => this.updateProfile(this.state)     
+                    onPress = {() => this._storeData()        
                     }
                 >
                     <Text style = {{alignSelf: 'center', justifyContent: 'center', padding: 15, fontSize: 20}}>Update</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                    style = {{width: 90, height: 50, backgroundColor: color.blue, alignSelf: 'center'}}
+                    onPress = {() =>  this._retrieveData()}
+                >
+                    <Text style = {{alignSelf: 'center', justifyContent: 'center', padding: 15, fontSize: 20}}>Cancel</Text>
                 </TouchableOpacity>
                 </ScrollView>
 			</SafeAreaView>
