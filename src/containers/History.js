@@ -1,15 +1,32 @@
 import React from 'react';
-import {View, SafeAreaView, Text, StyleSheet, FlatList, TouchableOpacity, Image} from 'react-native';
+import {AsyncStorage, View, SafeAreaView, Text, StyleSheet, FlatList, TouchableOpacity, Image} from 'react-native';
 import color from '../css/ColorConstant'
 export default class History extends React.Component {
 	constructor(props) {
         super(props)
         this.state = {
-            history: ''
+			history: '',
+			email: 'postman@'
         }
-    }
+	}
+		getData = async () => {
+        try {
+          var email = await AsyncStorage.getItem('@profile:email');
+          return email;
+        } catch (error) {
+          // Error retrieving data
+        }
+      };
 	componentDidMount() {
-		fetch(baseUrl + 'api/history?email=tanduyht@gmail.com')
+		this.getData().then(result => this.setState( data => ({
+            email:  result.slice(1,-1),
+		}))
+		)
+		
+		
+	}
+	componentDidUpdate() {
+		fetch(baseUrl + 'api/history?email=' + this.state.email)
 		.then((response) => response.json())
 		.then((responseJson) => {
 		  this.setState({
@@ -48,6 +65,8 @@ export default class History extends React.Component {
 						<View style={{ flexDirection: 'column', flexWrap: 'wrap'}}>
 							<Text style = {{fontSize: 16, fontWeight: '400'}}>ID Booking: {item.id}</Text>
 							<Text style={{ fontSize: 16 * 1.5, fontWeight: 'bold', paddingBottom: 36 / 4.5, color: 'black'}}>{item.categoryRoomName}</Text>
+							<Text style = {{fontSize: 20, fontWeight: '400', marginBottom: 5}}>Room: {item.roomName}</Text>
+
                             <Text style = {{fontSize: 16, fontWeight: '300'}}>{item.DateIn.split('').slice(0,10)} - {item.DateOut.split('').slice(0,10)}</Text>
 						</View>
 						<View style={{flex: 1, alignItems: 'flex-start', padding: 5}}>
@@ -63,6 +82,7 @@ export default class History extends React.Component {
 		)
 		}
 	render() {
+		
     	return (
 			<SafeAreaView style= {styles.roomList}>
 				<FlatList 

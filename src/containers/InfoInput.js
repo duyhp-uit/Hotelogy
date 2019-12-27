@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    AsyncStorage,
     SafeAreaView,
     Text,
     Dimensions,
@@ -19,9 +20,36 @@ export default class InfoInput extends React.Component {
             email: null,
             phone_number: null,
             address: null,
-            id_card: null
+            id: null
         }
     }
+    getData = async () => {
+        try {
+        var data= [];
+          var name = await AsyncStorage.getItem('@profile:name');
+          var email = await AsyncStorage.getItem('@profile:email');
+          var phone_number = await AsyncStorage.getItem('@profile:phone_number');
+          var id = await AsyncStorage.getItem('@profile:id');
+          var address = await AsyncStorage.getItem('@profile:address');
+          data['name'] = name.slice(1,-1);
+          data['email'] = email.slice(1,-1);
+          data['phone_number'] = phone_number.slice(1,-1);
+          data['id'] = id.slice(1,-1);
+          data['address'] = address.slice(1,-1);
+          return data;
+        } catch (error) {
+          // Error retrieving data
+        }
+      };
+      componentDidMount(){
+        this.getData().then(result => this.setState( data => ({
+            name: result.name,
+            email:  result.email,
+            phone_number: result.phone_number,
+            id: result.id,
+            address: result.address
+        })))
+      }
     render() {
         var valid = true;
         return(
@@ -53,8 +81,8 @@ export default class InfoInput extends React.Component {
                 <TextInput
                     style= {styles.input}
                     placeholder = 'ID'
-                    onChangeText = {(id_card) => this.setState({id_card})}
-                    value = {this.state.id_card}/>
+                    onChangeText = {(id) => this.setState({id})}
+                    value = {this.state.id}/>
                 <TouchableOpacity
                     style= {styles.nextBtn}
                     onPress = {() => {
@@ -77,7 +105,7 @@ export default class InfoInput extends React.Component {
                             phone_number: this.state.phone_number,
                             address: this.state.address,
                             email: this.state.email,
-                            id_card: this.state.id_card
+                            id_card: this.state.id
                         })
                         } else {
                             Alert.alert('Please fill out the form')  

@@ -37,13 +37,13 @@ export default class FinishBooking extends React.Component {
         fetch(baseUrl + 'api/history?email=' + this.props.navigation.getParam('email'))
 		.then((response) => response.json())
 		.then((responseJson) => {
-            if (responseJson.data.length > 1) {
+            if (responseJson.data[responseJson.data.length-1].status !== 1) {
                 Alert.alert('Please paid previous booking!')
             }
             else {
             fetch( baseUrl + 'api/reservation', {
             method: 'POST',
-            eaders: {
+            headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
         },

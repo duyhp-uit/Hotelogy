@@ -17,6 +17,7 @@ import ProfileForm from './src/containers/ProfileForm'
 import ConfirmBooking from './src/containers/ConfirmBooking'
 import History from './src/containers/History'
 import {YellowBox} from 'react-native';
+require('events').EventEmitter.defaultMaxListeners = 25
 
 YellowBox.ignoreWarnings(['Warning: ...']);
 

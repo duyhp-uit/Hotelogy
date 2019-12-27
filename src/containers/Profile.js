@@ -1,18 +1,44 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, TouchableWithoutFeedback, Image, Button, AsyncStorage} from 'react-native';
+import {View, Text, StyleSheet, TouchableWithoutFeedback, Image, AsyncStorage} from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 class Profile extends Component {
-	_retrieveData = async () => {
+	constructor(props) {
+        super(props)
+        this.state = {
+            name: '',
+            email:  '',
+            address:  '',
+            phone_number:  '',
+            id: ''
+        }
+    }
+	getData = async () => {
         try {
-          const value = await AsyncStorage.getItem('@MySuperStore:key');
-          if (value !== null) {
-            // We have data!!
-            console.log(value);
-          }
+         var data= [];
+          var name = await AsyncStorage.getItem('@profile:name');
+          var email = await AsyncStorage.getItem('@profile:email');
+          var phone_number = await AsyncStorage.getItem('@profile:phone_number');
+          var id = await AsyncStorage.getItem('@profile:id');
+          var address = await AsyncStorage.getItem('@profile:address');
+          data['name'] = name.slice(1,-1);
+          data['email'] = email.slice(1,-1);
+          data['phone_number'] = phone_number.slice(1,-1);
+          data['id'] = id.slice(1,-1);
+          data['address'] = address.slice(1,-1);
+          return data;
         } catch (error) {
           // Error retrieving data
         }
       };
+      componentDidMount(){
+        this.getData().then(result => this.setState( data => ({
+            name: result.name,
+            email:  result.email,
+            phone_number: result.phone_number,
+            id: result.id,
+            address: result.address
+        })))
+      }
 	render() {
     	return (
 			<SafeAreaView>
@@ -27,10 +53,10 @@ class Profile extends Component {
 					</Image>
 					<View style = {{flexDirection: 'column', alignSelf: 'center'}}>
 						<Text style = {{fontSize: 18 }}>
-							Huynh Duy
+							{this.state.name}
 						</Text>
 						<Text style = {{fontSize: 12}}>
-							kudophuongduy@gmail.com
+							{this.state.email}
 						</Text>
 					</View>
 				</View>
