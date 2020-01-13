@@ -37,7 +37,9 @@ export default class Room extends React.Component {
         }
     }
     reserveRoom() {
-        return fetch(baseUrl + 'api/getRoomAvailable/' + this.props.navigation.getParam('id'))
+        return fetch(baseUrl + 'api/getRoomAvailable/' + this.props.navigation.getParam('id') + '?number=' + 
+        this.state.numberRoom
+        )
               .then((response) => response.json())
               .then((responseJson) => {
                   if (responseJson.code == 200) 

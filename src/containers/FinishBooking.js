@@ -37,11 +37,11 @@ export default class FinishBooking extends React.Component {
         fetch(baseUrl + 'api/history?email=' + this.props.navigation.getParam('email'))
 		.then((response) => response.json())
 		.then((responseJson) => {
-            if (responseJson.data[responseJson.data.length-1].status !== 1) {
+            if (responseJson.data.length != 0 && responseJson.data[responseJson.data.length-1].status !== 1) {
                 Alert.alert('Please paid previous booking!')
             }
             else {
-            fetch( baseUrl + 'api/reservation', {
+            fetch( baseUrl + 'api/postReservation?number=' + this.props.navigation.getParam('number_room'), {
             method: 'POST',
             headers: {
             Accept: 'application/json',
@@ -131,7 +131,7 @@ export default class FinishBooking extends React.Component {
                             Total price for 1 room, {num_days} day(s)
                         </Text>
                         <Text style = {{fontWeight: 'bold', fontSize: 30, marginTop: 10, color: color.green}}>
-                        {price * num_days}$
+                        {price * num_days * this.props.navigation.getParam('number_room')}$
                         </Text>
                         <Text style = {{fontWeight: '300', marginTop: 6}}>
                             <Ionicons name='md-checkmark' size={16} color='green'/> Includes taxes and fees
