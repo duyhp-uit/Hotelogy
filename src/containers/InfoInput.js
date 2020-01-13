@@ -105,7 +105,8 @@ export default class InfoInput extends React.Component {
                             phone_number: this.state.phone_number,
                             address: this.state.address,
                             email: this.state.email,
-                            id_card: this.state.id
+                            id_card: this.state.id,
+                            number_room: this.props.navigation.getParam('number_room')
                         })
                         } else {
                             Alert.alert('Please fill out the form')  

@@ -31,7 +31,8 @@ export default class Room extends React.Component {
         }
         this.state = {
             date_start: formatedDate,
-            date_end: formatedDate
+            date_end: formatedDate,
+            numberRoom: 1
 
         }
     }
@@ -50,7 +51,8 @@ export default class Room extends React.Component {
                             price: this.props.navigation.getParam('price'),
                             rating: this.props.navigation.getParam('rating'),
                             date_start: this.state.date_start,
-                            date_end: this.state.date_end
+                            date_end: this.state.date_end,
+                            number_room: this.state.numberRoom
                         })
                     } else {
                         Alert.alert('Date check-in cannot be greater than date check-out! Please check again.')
@@ -179,6 +181,32 @@ export default class Room extends React.Component {
             </TouchableOpacity>
         )
     }
+    renderNumberRoom() {
+        return (
+            <View style={[styles.sectionContainer, {flexDirection: 'row', height: 60, alignItems: 'center'}]}>
+                <Text style = {{paddingHorizontal: 5}}> Number of Room:</Text>
+                <TouchableOpacity style= {{backgroundColor: color.blue, width: 40, height: 40}}
+                onPress = {() => {
+                    if (this.state.numberRoom >= 2) {
+                        this.setState({numberRoom: --this.state.numberRoom})}
+                        else { Alert.alert('The minimum number is 1')}
+                        }}
+                >
+                    <Text style = {{ alignSelf: 'center', fontSize: 28, color: color.white}}>-</Text>                    
+                </TouchableOpacity>
+                <Text style = {{paddingHorizontal: 10}}>{this.state.numberRoom}</Text>
+                <TouchableOpacity style= {{backgroundColor: color.blue, width: 30,  width: 40, height: 40}}
+                onPress = {() => {
+                    if (this.state.numberRoom <= 4 ) {
+                        this.setState({numberRoom: ++this.state.numberRoom});
+                        } else { Alert.alert('The maximum number is 5')}
+                        }}
+                >
+                    <Text style = {{ alignSelf: 'center', fontSize: 28, color: color.white}}>+</Text>                    
+                </TouchableOpacity>
+            </View>
+        )
+    }
     renderDateCheckSection() {
         var currentDate = new Date();
         return( 
@@ -251,6 +279,7 @@ export default class Room extends React.Component {
                     {this.renderMainImage()}
                     {this.renderTitleSection()}
                     {this.renderDateCheckSection()}
+                    {this.renderNumberRoom()}
                     {this.renderDetailRoomSection()}
                     {this.renderImageColectionSection()}
                     {this.renderTotalMoneySection()}

@@ -54,6 +54,7 @@ export default class FinishBooking extends React.Component {
                 phone: this.props.navigation.getParam('phone_number'),
                 dateIn: this.props.navigation.getParam('date_start') + ' 00:00:00',
                 dateOut: this.props.navigation.getParam('date_end') + ' 00:00:00',
+                numberRoom: this.props.navigation.getParam('number_room'),
                 numbers: '1',
                 note: 'x'
             }),
@@ -120,22 +121,26 @@ export default class FinishBooking extends React.Component {
                         <Text style = {{fontSize: 24, fontWeight: '400'}}>{String(date_end).slice(0,15)}</Text>
                     </View>
                 </View>
-                    <View style = {styles.billSectionContainer}>
-                        <View style = {{marginLeft: 10}}>
-                            <Text style = {{marginTop: 10}}>
-                                Total price for 1 room, {num_days} day(s)
-                            </Text>
-                            <Text style = {{fontWeight: 'bold', fontSize: 30, marginTop: 10, color: color.green}}>
-                            {price * num_days}$
-                            </Text>
-                            <Text style = {{fontWeight: '300', marginTop: 6}}>
-                                <Ionicons name='md-checkmark' size={16} color='green'/> Includes taxes and fees
-                            </Text>
-                            <Text style = {{fontWeight: '300', marginTop: 6}}>
-                                <Ionicons name='md-checkmark' size={16} color='green'/> Free cancelation in 24 hours
-                            </Text>
-                        </View>
+                <View style={[styles.sectionContainer, {flexDirection: 'row', height: 60, alignItems: 'center'}]}>
+                    <Text style = {{paddingHorizontal: 5, fontSize: 24}}> Number of Room:</Text>
+                    <Text style = {{paddingHorizontal: 10, fontSize: 24}}>{this.props.navigation.getParam('number_room')}</Text>
+                </View>
+                <View style = {styles.billSectionContainer}>
+                    <View style = {{marginLeft: 10}}>
+                        <Text style = {{marginTop: 10}}>
+                            Total price for 1 room, {num_days} day(s)
+                        </Text>
+                        <Text style = {{fontWeight: 'bold', fontSize: 30, marginTop: 10, color: color.green}}>
+                        {price * num_days}$
+                        </Text>
+                        <Text style = {{fontWeight: '300', marginTop: 6}}>
+                            <Ionicons name='md-checkmark' size={16} color='green'/> Includes taxes and fees
+                        </Text>
+                        <Text style = {{fontWeight: '300', marginTop: 6}}>
+                            <Ionicons name='md-checkmark' size={16} color='green'/> Free cancelation in 24 hours
+                        </Text>
                     </View>
+                </View>
                 <View>
                     <TouchableOpacity 
                     style = {{backgroundColor: color.blue, height: 60, width: '100%', alignItems: 'center'}}
@@ -180,6 +185,12 @@ const styles = StyleSheet.create({
         backgroundColor: color.white,
         height: 100
     },
+    sectionContainer: {
+        marginTop: 3,
+        backgroundColor: color.white,
+        height: 60
+    },
+
     input: {
         alignSelf: 'center', 
         width: '90%',
